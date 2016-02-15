@@ -207,14 +207,15 @@ void test2(Order o) {
 #include "SimpleArrayContainer.h"
 
 void test5() {
-	SimpleArrayContainer<int> a, b, c;
-	AbstractArrayContainer<int>* d = new SimpleArrayContainer<int>();
-	Subscript s({ 1, 2, 3 });
+	SimpleArrayContainer<int> a({ 3, 3 });
+	a = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	AbstractArrayContainer<int>* b = new SimpleArrayContainer<int>({ 1, 3 });
+	Subscript s({ 1, 3 });
+	Index I = s.toIndex();
 	std::shared_ptr<int> i = a.at(4);
 	std::shared_ptr<int> j = a.at(s);
-	a.getSize();
-	a.getOrder();
-	a.test();
+	Range r(s);
+	std::auto_ptr<AbstractArrayContainer<int>> test = a.at(r);
 }
 
 void fake(int& i) {

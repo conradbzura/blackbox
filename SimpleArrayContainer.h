@@ -7,38 +7,21 @@ template <typename T>
 class SimpleArrayContainer: public AbstractArrayContainer<T> {
 public:
 	SimpleArrayContainer();
+	SimpleArrayContainer(Subscript order);
 	~SimpleArrayContainer();
 
-	virtual std::auto_ptr<AbstractArrayContainer<T>> create();
+	SimpleArrayContainer<int>& operator =(std::initializer_list<T> values);
+
+	virtual std::auto_ptr<AbstractArrayContainer<T>> create(Subscript order);
 	using AbstractArrayContainer<T>::at;
-	virtual auto at(Index index)-> std::shared_ptr<T>;
+	virtual auto at(Index index)-> std::shared_ptr<T>&;
 	void test() {}
+
+protected:
+	std::vector<std::shared_ptr<T>> data_;
 };
 
-//begin: .cpp file
-template <typename T>
-SimpleArrayContainer<T>::SimpleArrayContainer() {
-	//noop
-}
-
-template <typename T>
-SimpleArrayContainer<T>::~SimpleArrayContainer() {
-	//noop
-}
-
-template <typename T>
-std::auto_ptr<AbstractArrayContainer<T>> SimpleArrayContainer<T>::create() {
-	return std::auto_ptr<AbstractArrayContainer<T>>(new SimpleArrayContainer<T>());
-}
-
-template <typename T>
-auto SimpleArrayContainer<T>::at(Index index)-> std::shared_ptr<T> {
-	//todo: implement
-	return std::shared_ptr<T>(new T());
-}
-//end: .cpp file
-
-//#include "SimpleArrayContainer.cpp"
+#include "SimpleArrayContainer.cpp"
 
 #endif
 

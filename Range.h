@@ -1,6 +1,7 @@
 #ifndef __RANGE_H__
 #define __RANGE_H__
 
+#include "Index.h"
 #include "Order.h"
 #include "Subscript.h"
 
@@ -12,13 +13,22 @@ public:
 		Iterator(Range* range);
 
 		operator Subscript();
-		void setOrigin(Subscript origin);
+
 		void operator ++();
 		void operator --();
 		bool operator ==(Subscript subscript);
 		bool operator !=(Subscript subscript);
+		bool operator <=(Subscript subscript);
+		bool operator >=(Subscript subscript);
+		bool operator <(Subscript subscript);
+		bool operator >(Subscript subscript);
+
+		void setOrigin(Subscript origin);
 
 	private:
+		void increment(int i = 0);
+		void decrement(int i = 0);
+
 		Range* range_;
 		Subscript this_;
 	};

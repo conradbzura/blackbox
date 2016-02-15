@@ -50,23 +50,70 @@ Range::Iterator::operator Subscript() {
 	return this_;
 }
 
+void Range::Iterator::operator ++() {
+	increment();
+}
+
+void Range::Iterator::operator --() {
+	decrement();
+}
+
+bool Range::Iterator::operator ==(Subscript subscript) {
+	return this_ == subscript;
+}
+
+bool Range::Iterator::operator !=(Subscript subscript) {
+	return this_ != subscript;
+}
+
+bool Range::Iterator::operator <=(Subscript subscript) {
+	return this_ <= subscript;
+}
+
+bool Range::Iterator::operator >=(Subscript subscript) {
+	return this_ >= subscript;
+}
+
+bool Range::Iterator::operator <(Subscript subscript) {
+	return this_ < subscript;
+}
+
+bool Range::Iterator::operator >(Subscript subscript) {
+	return this_ > subscript;
+}
+
 void Range::Iterator::setOrigin(Subscript origin) {
 	this_ = origin;
 }
 
-void Range::Iterator::operator ++() {
-	//todo
+void Range::Iterator::increment(int i) {
+	if (this_ >= range_->ceiling_) {
+		this_.front() = range_->ceiling_.front() + 1;
+		return;
+	}
+	if (i == this_.size()) {
+		i = 0;
+	}
+	if (this_.at(i) < range_->ceiling_.at(i)) {
+		this_.at(i)++;
+	} else {
+		this_.at(i) = range_->floor_.at(i);
+		increment(++i);
+	}
 }
 
-void Range::Iterator::operator --() {
-	//todo
-}
-
-bool Range::Iterator::operator ==(Subscript subscript) {
-	return false;
-	//todo
-}
-
-bool Range::Iterator::operator !=(Subscript subscript) {
-	return !(*this == subscript);
+void Range::Iterator::decrement(int i) {
+	if (this_ <= range_->floor_) {
+		this_.front() = range_->floor_.front() - 1;
+		return;
+	}
+	if (i == this_.size()) {
+		i = 0;
+	}
+	if (this_.at(i) > range_->floor_.at(i)) {
+		this_.at(i)--;
+	} else {
+		this_.at(i) = range_->ceiling_.at(i);
+		increment(++i);
+	}
 }
