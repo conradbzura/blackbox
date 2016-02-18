@@ -1,53 +1,31 @@
 #ifndef __LOGSERVICE_H__
 #define __LOGSERVICE_H__
 
-#include <fstream>
 #include <string>
 
-#include "LogStream.h"
+#include "Stream.h"
 
-template <typename Policy>
+namespace log {
+
+template <typename T>
 class LogService {
 public:
-	LogService(const std::string& name);
+	LogService();
 	~LogService();
 
-	template <Verbosity V, typename... Args>
-	void print(Args... args);
+	template <Verbosity V>
+	void log(std::string file, std::string line, std::string message);
 
 private:
 	std::string getTime();
 	std::string getHeader();
 
+	T* stream_;
 	unsigned line_;
 	std::mutex mutex_;
-	LogStream* logStream_;
-	std::stringstream stringStream_;
 
 };
 
-static LogService<LogStream> log("execution.log");
-
-#ifdef LOGGING_LEVEL_1
-#define DEBUG log.print<Verbosity::Debug>
-#define INFO log.print<Verbosity::Info>
-#define WARNING log.print<Verbosity::Warning>
-#define ERROR log.print<Verbosity::Error>
-#else
-#define DEBUG(...) 
-#define INFO(...)
-#define WARNING(...)
-#define ERROR(...)
-#endif
-
-#ifdef LOGGING_LEVEL_2
-#define ELOG log_inst.print< logging::severity_type::debug >
-#define ELOG_ERR log_inst.print< logging::severity_type::error >
-#define ELOG_WARN log_inst.print< logging::severity_type::warning >
-#else
-#define ELOG(...) 
-#define ELOG_ERR(...)
-#define ELOG_WARN(...)
-#endif
+} //namespace: log
 
 #endif
