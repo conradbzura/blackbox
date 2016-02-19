@@ -3,33 +3,42 @@
 
 #include <string>
 
+namespace logger {
+//todo: split the implementation classes out into separate files
+
 class Verbosity {
 protected:
 	Verbosity() {}
 };
 
-class Error: public Verbosity {
+class Error : public Verbosity {
+public:
 	operator std::string() {
 		return "ERROR";
 	}
 };
 
 class Warning : public Verbosity {
+public:
 	operator std::string() {
 		return "WARNING";
 	}
 };
 
 class Info : public Verbosity {
+public:
 	operator std::string() {
 		return "INFO";
 	}
 };
 
 class Debug : public Verbosity {
+public:
 	operator std::string() {
 		return "DEBUG";
 	}
 };
+
+} //namespace: logger
 
 #endif

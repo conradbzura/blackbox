@@ -3,21 +3,19 @@
 
 #include <fstream>
 #include <memory>
-
-namespace log {
+#include <string>
 
 #define LOG_FILE 'F'
 #define LOG_DATABASE 'D'
 #define LOG_STRING 'S'
 
+namespace logger {
+
 class Stream {
 public:
-	Stream();
-	~Stream();
-
-	virtual void write() = 0;
-	virtual void open();
-	virtual void close();
+	virtual void open() = 0;
+	virtual void close() = 0;
+	virtual void write(const std::string& message) = 0;
 };
 
 class File : public Stream {
@@ -25,9 +23,9 @@ public:
 	File();
 	~File();
 
-	void write();
 	void open();
 	void close();
+	void write(const std::string& message);
 
 private:
 	std::unique_ptr<std::ofstream> stream_;
@@ -38,9 +36,9 @@ public:
 	Database();
 	~Database();
 
-	void write();
 	void open();
 	void close();
+	void write(const std::string& message);
 };
 
 class String : public Stream {
@@ -48,14 +46,14 @@ public:
 	String();
 	~String();
 
-	void write();
 	void open();
 	void close();
+	void write(const std::string& message);
 
 private:
 	std::unique_ptr<std::ofstream> stream_;
 };
 
-}
+} //namespace: logger
 
 #endif

@@ -203,12 +203,14 @@ void test2(Order o) {
 	o.toIndex();
 }
 */
+#define LOG_VERBOSITY 1
 
 #include "SimpleArrayContainer.h"
+#include "Stream.h"
 #include "Log.h"
 
 void test5() {
-	ERROR("st", "s", "fr");
+	ERROR(__FILE__, __LINE__, "Error occurred here");
 	SimpleArrayContainer<int> a({ 3, 3 });
 	a = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	AbstractArrayContainer<int>* b = new SimpleArrayContainer<int>({ 1, 3 });
