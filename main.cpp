@@ -210,6 +210,7 @@ void test2(Order o) {
 #include "Log.h"
 
 void test5() {
+	using namespace blackbox;
 	ERROR(__FILE__, __LINE__, "Error occurred here");
 	SimpleArrayContainer<int> a({ 3, 3 });
 	a = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
