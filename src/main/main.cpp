@@ -114,53 +114,53 @@ void test3() {
 /*
 
 template <typename Type>
-class AbstractArrayContainer {
+class AbstractContainer {
 public:
-	AbstractArrayContainer() = delete;
-	virtual ~AbstractArrayContainer();
-	virtual std::unique_ptr<AbstractArrayContainer<Type>> create(Order order) = 0;
-	virtual std::unique_ptr<AbstractArrayContainer<Type>> clone() = 0;
+	AbstractContainer() = delete;
+	virtual ~AbstractContainer();
+	virtual std::unique_ptr<AbstractContainer<Type>> create(Order order) = 0;
+	virtual std::unique_ptr<AbstractContainer<Type>> clone() = 0;
 
-	virtual std::unique_ptr<AbstractArrayContainer<Type>> getRange() = 0;
+	virtual std::unique_ptr<AbstractContainer<Type>> getRange() = 0;
 };
 
 template <typename Type>
-AbstractArrayContainer<Type>::AbstractArrayContainer() {}
+AbstractContainer<Type>::AbstractContainer() {}
 
 template <typename Type>
-AbstractArrayContainer<Type>::~AbstractArrayContainer() {}
+AbstractContainer<Type>::~AbstractContainer() {}
 
 
 
 
 
 template <typename Type>
-class SimpleArrayContainer : public AbstractArrayContainer<Type> {
+class SimpleContainer : public AbstractContainer<Type> {
 public:
-	SimpleArrayContainer(Order order);
-	~SimpleArrayContainer();
+	SimpleContainer(Order order);
+	~SimpleContainer();
 
-	SimpleArrayContainer& SimpleArrayContainer(const AbstractArrayContainer& container);
+	SimpleContainer& SimpleContainer(const AbstractContainer& container);
 protected:
 	std::vector<std::shared_ptr<Type>> data_;
 	Order order_;
 };
 
 template <typename Type>
-SimpleArrayContainer<Type>::SimpleArrayContainer(Order order) : order_(order) {
+SimpleContainer<Type>::SimpleContainer(Order order) : order_(order) {
 	data_.assign(order.toIndex());
 }
 
 template <typename Type>
-std::unique_ptr<AbstractArrayContainer<Type>> SimpleArrayContainer<Type>::create(Order order) {
-	return std::unique_ptr < new SimpleArrayContainer<Type>(order) > ;
+std::unique_ptr<AbstractContainer<Type>> SimpleContainer<Type>::create(Order order) {
+	return std::unique_ptr < new SimpleContainer<Type>(order) > ;
 }
 
 
 
 
 
-template <typename Type, typename Container = SimpleArrayContainer<Type>>
+template <typename Type, typename Container = SimpleContainer<Type>>
 class Array {
 public:
 	Array(Order order);
@@ -205,22 +205,23 @@ void test2(Order o) {
 */
 #define LOG_VERBOSITY 1
 
-#include "SimpleArrayContainer.h"
-#include "Stream.h"
-#include "Log.h"
+#include "array/SimpleContainer.h"
+#include "log/Stream.h"
+#include "log/Log.h"
 
 void test5() {
 	using namespace blackbox;
 	ERROR(__FILE__, __LINE__, "Error occurred here");
-	SimpleArrayContainer<int> a({ 3, 3 });
+	int three = 3;
+	array::SimpleContainer<int> a({ three, 3 });
 	a = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-	AbstractArrayContainer<int>* b = new SimpleArrayContainer<int>({ 1, 3 });
-	Subscript s({ 1, 3 });
-	Index I = s.toIndex();
+	array::AbstractContainer<int>* b = new array::SimpleContainer<int>({ 1, 3 });
+	array::Subscript s({ 1, 3 });
+	array::Index I = s.toIndex();
 	std::shared_ptr<int> i = a.at(4);
 	std::shared_ptr<int> j = a.at(s);
-	Range r(s);
-	std::auto_ptr<AbstractArrayContainer<int>> test = a.at(r);
+	array::Range r(s);
+	std::auto_ptr<array::AbstractContainer<int>> test = a.at(r);
 }
 
 void fake(int& i) {

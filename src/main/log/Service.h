@@ -21,7 +21,7 @@ namespace blackbox {
 
 		private:
 			std::string getTime();
-			std::string getHeader();
+			std::string getLogHeader();
 			std::string getLogEntry(std::string verbosity, std::string file, int line, std::string message);
 
 			T* stream_;

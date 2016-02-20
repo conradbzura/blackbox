@@ -11,11 +11,11 @@ namespace blackbox {
 			stream_ = new T();
 			if (!stream_) {
 				char errorMessage[256];
-				snprintf(errorMessage, 256, "ERROR<%s:%d>: Could not instantiate Stream!", __FILE__, __LINE__ - 3);
+				snprintf(errorMessage, 256, "ERROR<%s:%d>: Could not instantiate %s!", __FILE__, __LINE__ - 3, typeid(T).name());
 				throw (std::runtime_error(errorMessage));
 			}
 			stream_->open();
-			stream_->write(getHeader());
+			stream_->write(getLogHeader());
 		}
 
 		template <typename T>
@@ -43,7 +43,7 @@ namespace blackbox {
 		}
 
 		template <typename T>
-		std::string Service<T>::getHeader() {
+		std::string Service<T>::getLogHeader() {
 			std::stringstream logHeader;
 			logHeader << "SEVERITY" << DELIM << "TIMESTAMP" << DELIM << "FILE" << DELIM << "LINE" << DELIM << "MESSAGE";
 			return logHeader.str();
