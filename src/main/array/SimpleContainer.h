@@ -15,7 +15,7 @@ namespace blackbox {
 
 			// AbstractContainer override declarations
 			using AbstractContainer<T>::at;
-			auto at(Index index)->std::shared_ptr<T>&;
+			auto at(Index index) -> std::shared_ptr<T>&;
 			std::auto_ptr<AbstractContainer<T>> create(Subscript order);
 
 		protected:

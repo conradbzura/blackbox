@@ -203,7 +203,7 @@ void test2(Order o) {
 	o.toIndex();
 }
 */
-#define LOG_VERBOSITY 1
+#define LOG_VERBOSITY 2
 
 #include "array/SimpleContainer.h"
 #include "log/Stream.h"

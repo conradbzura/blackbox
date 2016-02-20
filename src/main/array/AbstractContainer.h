@@ -11,22 +11,23 @@
 namespace blackbox {
 	namespace array {
 		template <typename T>
-		class AbstractContainer: public modifier::Cloneable<AbstractContainer<T>> {
+		class AbstractContainer : public modifier::Cloneable<AbstractContainer<T>> {
 		public:
 			AbstractContainer() = delete;
 			AbstractContainer(Subscript order);
 			~AbstractContainer();
 
+			auto at(Subscript subscript) -> std::shared_ptr<T>&;
+			auto at(Subscript floor, Subscript ceiling) -> std::auto_ptr<AbstractContainer<T>>;
+			
 			// pure virtual
 			virtual std::auto_ptr<AbstractContainer<T>> create(Subscript order) = 0;
-			virtual auto at(Index index)-> std::shared_ptr<T>& = 0;
+			virtual auto at(Index index) -> std::shared_ptr<T>& = 0;
 
 			// virtual
 			virtual void duplicateTo(AbstractContainer<T>& replica, Range range);
 			virtual void translateTo(AbstractContainer<T>& replica, Range range);
-			virtual auto at(Subscript subscript)-> std::shared_ptr<T>&;
-			virtual auto at(Subscript floor, Subscript ceiling)-> std::auto_ptr<AbstractContainer<T>>;
-			virtual auto at(Range range)-> std::auto_ptr<AbstractContainer<T>>;
+			virtual auto at(Range range) -> std::auto_ptr<AbstractContainer<T>>;
 			virtual Integer getSize();
 			virtual Subscript getOrder();
 

@@ -31,6 +31,7 @@ namespace blackbox {
 		void Service<T>::log(std::string file, int line, std::string message) {
 			mutex_.lock();
 			stream_->write(getLogEntry(V(), file, line, message));
+			mutex_.unlock();
 		}
 
 		template <typename T>
@@ -52,7 +53,7 @@ namespace blackbox {
 		template <typename T>
 		std::string Service<T>::getLogEntry(std::string severity, std::string file, int line, std::string message) {
 			std::stringstream logEntry;
-			logEntry << severity << DELIM << getTime() << DELIM << file << DELIM << line << DELIM << message;
+			logEntry << severity << DELIM << getTime() << DELIM << file << DELIM << line << DELIM << "\"" << message << "\"";
 			return logEntry.str();
 		}
 	}

@@ -24,13 +24,13 @@ namespace blackbox {
 		}
 
 		template <typename T>
-		std::auto_ptr<AbstractContainer<T>> SimpleContainer<T>::create(Subscript order) {
-			return std::auto_ptr<AbstractContainer<T>>(new SimpleContainer<T>(order));
+		auto SimpleContainer<T>::at(Index index) -> std::shared_ptr<T>& {
+			return data_.at(index - 1);
 		}
 
 		template <typename T>
-		auto SimpleContainer<T>::at(Index index)-> std::shared_ptr<T>& {
-			return data_.at(index - 1);
+		std::auto_ptr<AbstractContainer<T>> SimpleContainer<T>::create(Subscript order) {
+			return std::auto_ptr<AbstractContainer<T>>(new SimpleContainer<T>(order));
 		}
 	}
 }

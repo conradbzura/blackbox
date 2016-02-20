@@ -1,5 +1,10 @@
 #ifdef __ABSTRACTCONTAINER_H__
 
+#include <typeinfo>
+
+#include "event/ImplementationWarning.h"
+#include "log/Log.h"
+
 namespace blackbox {
 	namespace array {
 
@@ -15,13 +20,13 @@ namespace blackbox {
 
 		template <typename T>
 		void AbstractContainer<T>::duplicateTo(AbstractContainer<T>& replica, Range range) {
-			//todo: default implementation warning
+			WARNING(__FILE__, __LINE__, event::ImplementationWarning(__FUNCSIG__, typeid(*this).name()));
 			this->translateTo(replica, range);
 		}
 
 		template <typename T>
 		void AbstractContainer<T>::translateTo(AbstractContainer<T>& replica, Range range) {
-			//todo: default implementation warning
+			WARNING(__FILE__, __LINE__, event::ImplementationWarning(__FUNCSIG__, typeid(*this).name()));
 			Range newRange(range.getOrder());
 			Range::Iterator n = newRange.getIterator(newRange.getFloor());
 			for (Range::Iterator i = range.getIterator(range.getFloor()); i <= range.getCeiling(); ++i) {
@@ -31,18 +36,18 @@ namespace blackbox {
 		}
 
 		template <typename T>
-		auto AbstractContainer<T>::at(Subscript subscript)-> std::shared_ptr<T>& {
+		auto AbstractContainer<T>::at(Subscript subscript) -> std::shared_ptr<T>& {
 			return this->at(subscript.toIndex(order_));
 		}
 
 		template <typename T>
-		auto AbstractContainer<T>::at(Subscript floor, Subscript ceiling)-> std::auto_ptr<AbstractContainer<T>> {
+		auto AbstractContainer<T>::at(Subscript floor, Subscript ceiling) -> std::auto_ptr<AbstractContainer<T>> {
 			return this->at(Range(floor, ceiling));
 		}
 
 		template <typename T>
-		auto AbstractContainer<T>::at(Range range)-> std::auto_ptr<AbstractContainer<T>> {
-			//todo: default implementation warning
+		auto AbstractContainer<T>::at(Range range) -> std::auto_ptr<AbstractContainer<T>> {
+			WARNING(__FILE__, __LINE__, event::ImplementationWarning(__FUNCSIG__, typeid(*this).name()));
 			std::auto_ptr<AbstractContainer<T>> replica = this->create(range.getOrder());
 			this->duplicateTo(*replica, range);
 			return replica;
