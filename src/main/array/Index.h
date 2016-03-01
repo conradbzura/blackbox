@@ -6,19 +6,17 @@
 using Integer = int;
 
 namespace blackbox {
-	namespace array {
-		class Index {
-		public:
-			Index();
-			Index(Integer index);
-			~Index();
+	class Index {
+	public:
+		Index();
+		Index(Integer index);
+		~Index();
 
-			operator Integer();
-			Subscript toSubscript(Subscript ceiling);
-		private:
-			Integer index_;
-		};
-	}
+		operator Integer();
+		Subscript toSubscript(Subscript ceiling);
+	private:
+		Integer index_;
+	};
 }
 
 #endif

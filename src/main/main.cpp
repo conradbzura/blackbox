@@ -205,23 +205,25 @@ void test2(Order o) {
 */
 #define LOG_VERBOSITY 2
 
-#include "array/SimpleContainer.h"
-#include "log/Stream.h"
+//#include "array/SimpleContainer.h"
+//#include "array/AbstractContainer.h"
+#include "array/ArrayContainer.h"
+#include "log/LogStream.h"
 #include "log/Log.h"
 
 void test5() {
 	using namespace blackbox;
-	ERROR(__FILE__, __LINE__, "Error occurred here");
+	ERROR("Error occurred here");
 	int three = 3;
-	array::SimpleContainer<int> a({ three, 3 });
+	ArrayContainer::Simple<int> a({ three, 3 });
 	a = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-	array::AbstractContainer<int>* b = new array::SimpleContainer<int>({ 1, 3 });
-	array::Subscript s({ 1, 3 });
-	array::Index I = s.toIndex();
+	ArrayContainer::Abstract<int>* b = new ArrayContainer::Simple<int>({ 1, 3 });
+	Subscript s({ 1, 3 });
+	Index I = s.toIndex();
 	std::shared_ptr<int> i = a.at(4);
 	std::shared_ptr<int> j = a.at(s);
-	array::Range r(s);
-	std::auto_ptr<array::AbstractContainer<int>> test = a.at(r);
+	Range r(s);
+	std::auto_ptr<ArrayContainer::Abstract<int>> test = a.at(r);
 }
 
 void fake(int& i) {

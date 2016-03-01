@@ -6,50 +6,48 @@
 #include "Subscript.h"
 
 namespace blackbox {
-	namespace array {
-		class Range {
+	class Range {
+	public:
+		class Iterator {
 		public:
-			class Iterator {
-			public:
-				Iterator();
-				Iterator(Range* range);
+			Iterator();
+			Iterator(Range* range);
 
-				operator Subscript();
+			operator Subscript();
 
-				void operator ++();
-				void operator --();
-				bool operator ==(Subscript subscript);
-				bool operator !=(Subscript subscript);
-				bool operator <=(Subscript subscript);
-				bool operator >=(Subscript subscript);
-				bool operator <(Subscript subscript);
-				bool operator >(Subscript subscript);
+			void operator ++();
+			void operator --();
+			bool operator ==(Subscript subscript);
+			bool operator !=(Subscript subscript);
+			bool operator <=(Subscript subscript);
+			bool operator >=(Subscript subscript);
+			bool operator <(Subscript subscript);
+			bool operator >(Subscript subscript);
 
-				void setOrigin(Subscript origin);
-
-			private:
-				void increment(int i = 0);
-				void decrement(int i = 0);
-
-				Range* range_;
-				Subscript this_;
-			};
-			Range();
-			Range(Subscript ceiling);
-			Range(Subscript floor, Subscript ceiling);
-			~Range();
-
-			Subscript getFloor();
-			Subscript getCeiling();
-			Order getOrder();
-			Iterator getIterator(Subscript origin);
+			void setOrigin(Subscript origin);
 
 		private:
-			Subscript floor_;
-			Subscript ceiling_;
-			Iterator iterator_;
+			void increment(int i = 0);
+			void decrement(int i = 0);
+
+			Range* range_;
+			Subscript this_;
 		};
-	}
+		Range();
+		Range(Subscript ceiling);
+		Range(Subscript floor, Subscript ceiling);
+		~Range();
+
+		Subscript getFloor();
+		Subscript getCeiling();
+		Order getOrder();
+		Iterator getIterator(Subscript origin);
+
+	private:
+		Subscript floor_;
+		Subscript ceiling_;
+		Iterator iterator_;
+	};
 }
 
 #endif

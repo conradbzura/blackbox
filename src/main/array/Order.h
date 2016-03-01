@@ -4,16 +4,14 @@
 #include "Subscript.h"
 
 namespace blackbox {
-	namespace array {
-		class Order : public Subscript {
-		public:
-			Order();
-			~Order();
+	class Order : public Subscript {
+	public:
+		Order();
+		~Order();
 
-			operator Subscript();
-			Index toIndex();
-		};
-	}
+		operator Subscript();
+		Index toIndex();
+	};
 }
 
 #endif

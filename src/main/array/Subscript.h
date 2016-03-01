@@ -6,19 +6,17 @@
 using Integer = int;
 
 namespace blackbox {
-	namespace array {
-		class Index;
-		class Subscript : public std::vector<Integer> {
-		public:
-			Subscript();
-			//Subscript(std::vector<Integer> subscript);
-			Subscript(std::initializer_list<Integer> subscript);
-			~Subscript();
+	class Index;
+	class Subscript : public std::vector<Integer> {
+	public:
+		Subscript();
+		//Subscript(std::vector<Integer> subscript);
+		Subscript(std::initializer_list<Integer> subscript);
+		~Subscript();
 
-			Index toIndex();
-			Index toIndex(Subscript ceiling);
-		};
-	}
+		Index toIndex();
+		Index toIndex(Subscript ceiling);
+	};
 }
 
 #endif
