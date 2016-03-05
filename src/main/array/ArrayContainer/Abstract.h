@@ -3,14 +3,14 @@
 
 #include <memory>
 
-#include "modifier/Cloneable.h"
 #include "array/Index.h"
 #include "array/Range.h"
 #include "array/Subscript.h"
+#include "pattern/Prototype.h"
 
 namespace blackbox {
 	template <typename T>
-	class ArrayContainer::Abstract : public modifier::Cloneable<Abstract<T>> {
+	class ArrayContainer::Abstract : public Prototype<ArrayContainer::Abstract<T>> {
 	public:
 		Abstract() = delete;
 		Abstract(Subscript order);

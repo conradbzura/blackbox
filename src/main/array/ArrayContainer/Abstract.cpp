@@ -18,9 +18,10 @@ namespace blackbox {
 	}
 
 	template <typename T>
-	void ArrayContainer::Abstract<T>::duplicateTo(Abstract<T>& replica, Range range) {
+	ArrayContainer::Abstract<T>* ArrayContainer::Abstract<T>::clone() {
 		WARNING(__IMPLEMENTATION_WARNING__);
-		this->translateTo(replica, range);
+		ArrayContainer::Abstract<T>* replica = this->create();
+
 	}
 
 	template <typename T>
