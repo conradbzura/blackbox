@@ -19,6 +19,6 @@ namespace blackbox {
 	}
 }
 
-#include "modifier/Cloneable.cpp"
+#include "Cloneable.cpp"
 
 #endif

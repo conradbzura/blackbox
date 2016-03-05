@@ -2,12 +2,9 @@
 #define __EVENT_H__
 
 namespace blackbox {
-	namespace event {
-
-		class Event {
-			//todo: implement
-		};
-	}
+	class Event {
+		//TODO implement
+	};
 }
 
 #endif

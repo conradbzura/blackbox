@@ -6,10 +6,11 @@
 #include <string>
 
 #include "LogStream.h"
+#include "pattern/Singleton.h"
 
 namespace blackbox {
 	template <typename T>
-	class LogService {
+	class LogService : public Singleton<LogService<T>> {
 	public:
 		LogService();
 		~LogService();
