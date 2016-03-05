@@ -11,6 +11,7 @@
 namespace blackbox {
 	template <typename T>
 	class ArrayContainer::Abstract : public Prototype<ArrayContainer::Abstract<T>> {
+		//using Abstract = ArrayContainer::Abstract;
 	public:
 		Abstract() = delete;
 		Abstract(Subscript order);
@@ -30,9 +31,8 @@ namespace blackbox {
 		virtual Integer getSize();
 		virtual Subscript getOrder();
 
-		// Cloneable override declarations
-		void duplicateTo(Abstract<T>& replica);
-		void translateTo(Abstract<T>& replica);
+		// Prototype override declarations
+		Abstract<T>* clone();
 
 	protected:
 		Subscript order_;
