@@ -1,6 +1,8 @@
 #ifndef __PROTOTYPE_H__
 #define __PROTOTYPE_H__
 
+#include <memory>
+
 namespace blackbox {
 	template <class C>
 	class Prototype {
@@ -9,8 +11,8 @@ namespace blackbox {
 		~Prototype();
 
 		// pure virtual
-		virtual C* create() = 0;
-		virtual C* clone() = 0;
+		virtual std::auto_ptr<C> create() = 0;
+		virtual std::auto_ptr<C> clone() = 0;
 	};
 }
 

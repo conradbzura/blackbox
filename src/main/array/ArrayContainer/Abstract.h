@@ -18,21 +18,20 @@ namespace blackbox {
 		~Abstract();
 
 		auto at(Subscript subscript) -> std::shared_ptr<T>&;
-		auto at(Subscript floor, Subscript ceiling) -> std::auto_ptr<Abstract<T>>;
+		auto at(Subscript floor, Subscript ceiling) -> std::auto_ptr<ArrayContainer::Abstract<T>>;
 			
 		// pure virtual
-		virtual std::auto_ptr<Abstract<T>> create(Subscript order) = 0;
+		virtual std::auto_ptr<ArrayContainer::Abstract<T>> create(Subscript order) = 0;
 		virtual auto at(Index index) -> std::shared_ptr<T>& = 0;
 
 		// virtual
-		virtual void duplicateTo(Abstract<T>& replica, Range range);
-		virtual void translateTo(Abstract<T>& replica, Range range);
-		virtual auto at(Range range) -> std::auto_ptr<Abstract<T>>;
+		virtual auto at(Range range) -> std::auto_ptr<ArrayContainer::Abstract<T>>;
 		virtual Integer getSize();
 		virtual Subscript getOrder();
 
 		// Prototype override declarations
-		Abstract<T>* clone();
+		virtual std::auto_ptr<ArrayContainer::Abstract<T>> clone();
+		virtual std::auto_ptr<ArrayContainer::Abstract<T>> create();
 
 	protected:
 		Subscript order_;

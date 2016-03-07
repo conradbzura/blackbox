@@ -29,7 +29,7 @@ namespace blackbox {
 
 	template <typename T>
 	std::auto_ptr<ArrayContainer::Abstract<T>> ArrayContainer::Simple<T>::create(Subscript order) {
-		return std::auto_ptr<Abstract<T>>(new Simple<T>(order));
+		return std::auto_ptr<ArrayContainer::Abstract<T>>(new ArrayContainer::Simple<T>(order));
 	}
 }
 

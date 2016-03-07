@@ -18,21 +18,21 @@ namespace blackbox {
 	}
 
 	template <typename T>
-	ArrayContainer::Abstract<T>* ArrayContainer::Abstract<T>::clone() {
+	std::auto_ptr<ArrayContainer::Abstract<T>> ArrayContainer::Abstract<T>::clone() {
 		WARNING(__IMPLEMENTATION_WARNING__);
-		ArrayContainer::Abstract<T>* replica = this->create();
-
+		std::auto_ptr<ArrayContainer::Abstract<T>> replica = this->create();
+		Range range(order_);
+		Range::Iterator n = range.getIterator(range.getFloor());
+		for (Range::Iterator i = range.getIterator(range.getFloor()); i <= range.getCeiling(); ++i) {
+			*replica->at(n) = *this->at(i);
+			++n;
+		}
+		return replica;
 	}
 
 	template <typename T>
-	void ArrayContainer::Abstract<T>::translateTo(Abstract<T>& replica, Range range) {
-		WARNING(__IMPLEMENTATION_WARNING__);
-		Range newRange(range.getOrder());
-		Range::Iterator n = newRange.getIterator(newRange.getFloor());
-		for (Range::Iterator i = range.getIterator(range.getFloor()); i <= range.getCeiling(); ++i) {
-			replica.at(n) = this->at(i);
-			++n;
-		}
+	std::auto_ptr<ArrayContainer::Abstract<T>> ArrayContainer::Abstract<T>::create() {
+		return this->create(order_);
 	}
 
 	template <typename T>
@@ -41,15 +41,20 @@ namespace blackbox {
 	}
 
 	template <typename T>
-	auto ArrayContainer::Abstract<T>::at(Subscript floor, Subscript ceiling) -> std::auto_ptr<Abstract<T>> {
+	auto ArrayContainer::Abstract<T>::at(Subscript floor, Subscript ceiling) -> std::auto_ptr<ArrayContainer::Abstract<T>> {
 		return this->at(Range(floor, ceiling));
 	}
 
 	template <typename T>
-	auto ArrayContainer::Abstract<T>::at(Range range) -> std::auto_ptr<Abstract<T>> {
+	auto ArrayContainer::Abstract<T>::at(Range range) -> std::auto_ptr<ArrayContainer::Abstract<T>> {
 		WARNING(__IMPLEMENTATION_WARNING__);
-		std::auto_ptr<Abstract<T>> replica = this->create(range.getOrder());
-		this->duplicateTo(*replica, range);
+		std::auto_ptr<ArrayContainer::Abstract<T>> replica = this->create(range.getOrder());
+		Range newRange(range.getOrder());
+		Range::Iterator n = newRange.getIterator(range.getFloor());
+		for (Range::Iterator i = range.getIterator(range.getFloor()); i <= range.getCeiling(); ++i) {
+			replica->at(n) = this->at(i);
+			++n;
+		}
 		return replica;
 	}
 
@@ -61,16 +66,6 @@ namespace blackbox {
 	template <typename T>
 	Subscript ArrayContainer::Abstract<T>::getOrder() {
 		return order_;
-	}
-
-	template <typename T>
-	void ArrayContainer::Abstract<T>::duplicateTo(Abstract<T>& replica) {
-		this->duplicateTo(replica, Range(order_));
-	}
-
-	template <typename T>
-	void ArrayContainer::Abstract<T>::translateTo(Abstract<T>& replica) {
-		this->translateTo(replica, Range(order_));
 	}
 }
 

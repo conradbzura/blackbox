@@ -3,9 +3,9 @@
 
 //#include "ArrayContainer.h"
 
-#include "Index.h"
-#include "Range.h"
-#include "Subscript.h"
+#include "array/Index.h"
+#include "array/Range.h"
+#include "array/Subscript.h"
 
 namespace blackbox {
 	template <typename T>
@@ -14,12 +14,12 @@ namespace blackbox {
 		Simple() = delete;
 		Simple(Subscript order);
 		~Simple();
-		Simple<T>& operator =(std::initializer_list<T> values);
+		ArrayContainer::Simple<T>& operator =(std::initializer_list<T> values);
 
 		// Abstract override declarations
-		using Abstract<T>::at;
+		using ArrayContainer::Abstract<T>::at;
 		auto at(Index index) -> std::shared_ptr<T>&;
-		std::auto_ptr<Abstract<T>> create(Subscript order);
+		std::auto_ptr<ArrayContainer::Abstract<T>> create(Subscript order);
 
 	protected:
 		std::vector<std::shared_ptr<T>> data_;

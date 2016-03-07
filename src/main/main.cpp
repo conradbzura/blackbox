@@ -221,7 +221,11 @@ void test5() {
 	Subscript s({ 1, 3 });
 	Index I = s.toIndex();
 	std::shared_ptr<int> i = a.at(4);
+	*a.at(4) = 1;
 	std::shared_ptr<int> j = a.at(s);
+	int thirty = 30;
+	*j = thirty;
+	//j.swap(std::make_shared<int>(30));
 	Range r(s);
 	std::auto_ptr<ArrayContainer::Abstract<int>> test = a.at(r);
 }
