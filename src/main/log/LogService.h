@@ -15,13 +15,12 @@ namespace blackbox {
 		LogService();
 		~LogService();
 
-		template <typename V>
-		void log(std::string file, int line, std::string message);
+		void log(std::string severity, std::string file, int line, std::string message);
 
 	private:
 		std::string getTime();
-		std::string getLogHeader();
-		std::string getLogEntry(std::string verbosity, std::string file, int line, std::string message);
+		std::string buildHeader();
+		std::string buildEntry(std::string severity, std::string file, int line, std::string message);
 
 		T* stream_;
 		std::mutex mutex_;

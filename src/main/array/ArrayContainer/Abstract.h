@@ -10,28 +10,28 @@
 
 namespace blackbox {
 	template <typename T>
-	class ArrayContainer::Abstract : public Prototype<ArrayContainer::Abstract<T>> {
-		//using Abstract = ArrayContainer::Abstract;
+	class AbstractArrayContainer : public Prototype<AbstractArrayContainer<T>> {
+		//using Abstract = AbstractArrayContainer;
 	public:
-		Abstract() = delete;
-		Abstract(Subscript order);
-		~Abstract();
+		AbstractArrayContainer() = delete;
+		AbstractArrayContainer(Subscript order);
+		~AbstractArrayContainer();
 
 		auto at(Subscript subscript) -> std::shared_ptr<T>&;
-		auto at(Subscript floor, Subscript ceiling) -> std::auto_ptr<ArrayContainer::Abstract<T>>;
+		auto at(Subscript floor, Subscript ceiling) -> std::auto_ptr<AbstractArrayContainer<T>>;
 			
 		// pure virtual
-		virtual std::auto_ptr<ArrayContainer::Abstract<T>> create(Subscript order) = 0;
+		virtual std::auto_ptr<AbstractArrayContainer<T>> create(Subscript order) = 0;
 		virtual auto at(Index index) -> std::shared_ptr<T>& = 0;
 
 		// virtual
-		virtual auto at(Range range) -> std::auto_ptr<ArrayContainer::Abstract<T>>;
+		virtual auto at(Range range) -> std::auto_ptr<AbstractArrayContainer<T>>;
 		virtual Integer getSize();
 		virtual Subscript getOrder();
 
 		// Prototype override declarations
-		virtual std::auto_ptr<ArrayContainer::Abstract<T>> clone();
-		virtual std::auto_ptr<ArrayContainer::Abstract<T>> create();
+		virtual std::auto_ptr<AbstractArrayContainer<T>> clone();
+		virtual std::auto_ptr<AbstractArrayContainer<T>> create();
 
 	protected:
 		Subscript order_;

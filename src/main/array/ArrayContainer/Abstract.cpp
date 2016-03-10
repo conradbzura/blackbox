@@ -8,19 +8,19 @@
 namespace blackbox {
 
 	template <typename T>
-	ArrayContainer::Abstract<T>::Abstract(Subscript order) : order_(order) {
+	AbstractArrayContainer<T>::AbstractArrayContainer(Subscript order) : order_(order) {
 		//noop
 	}
 
 	template <typename T>
-	ArrayContainer::Abstract<T>::~Abstract() {
+	AbstractArrayContainer<T>::~AbstractArrayContainer() {
 		//noop
 	}
 
 	template <typename T>
-	std::auto_ptr<ArrayContainer::Abstract<T>> ArrayContainer::Abstract<T>::clone() {
+	std::auto_ptr<AbstractArrayContainer<T>> AbstractArrayContainer<T>::clone() {
 		WARNING(__IMPLEMENTATION_WARNING__);
-		std::auto_ptr<ArrayContainer::Abstract<T>> replica = this->create();
+		std::auto_ptr<AbstractArrayContainer<T>> replica = this->create();
 		Range range(order_);
 		Range::Iterator n = range.getIterator(range.getFloor());
 		for (Range::Iterator i = range.getIterator(range.getFloor()); i <= range.getCeiling(); ++i) {
@@ -31,24 +31,24 @@ namespace blackbox {
 	}
 
 	template <typename T>
-	std::auto_ptr<ArrayContainer::Abstract<T>> ArrayContainer::Abstract<T>::create() {
+	std::auto_ptr<AbstractArrayContainer<T>> AbstractArrayContainer<T>::create() {
 		return this->create(order_);
 	}
 
 	template <typename T>
-	auto ArrayContainer::Abstract<T>::at(Subscript subscript) -> std::shared_ptr<T>& {
+	auto AbstractArrayContainer<T>::at(Subscript subscript) -> std::shared_ptr<T>& {
 		return this->at(subscript.toIndex(order_));
 	}
 
 	template <typename T>
-	auto ArrayContainer::Abstract<T>::at(Subscript floor, Subscript ceiling) -> std::auto_ptr<ArrayContainer::Abstract<T>> {
+	auto AbstractArrayContainer<T>::at(Subscript floor, Subscript ceiling) -> std::auto_ptr<AbstractArrayContainer<T>> {
 		return this->at(Range(floor, ceiling));
 	}
 
 	template <typename T>
-	auto ArrayContainer::Abstract<T>::at(Range range) -> std::auto_ptr<ArrayContainer::Abstract<T>> {
+	auto AbstractArrayContainer<T>::at(Range range) -> std::auto_ptr<AbstractArrayContainer<T>> {
 		WARNING(__IMPLEMENTATION_WARNING__);
-		std::auto_ptr<ArrayContainer::Abstract<T>> replica = this->create(range.getOrder());
+		std::auto_ptr<AbstractArrayContainer<T>> replica = this->create(range.getOrder());
 		Range newRange(range.getOrder());
 		Range::Iterator n = newRange.getIterator(range.getFloor());
 		for (Range::Iterator i = range.getIterator(range.getFloor()); i <= range.getCeiling(); ++i) {
@@ -59,12 +59,12 @@ namespace blackbox {
 	}
 
 	template <typename T>
-	Integer ArrayContainer::Abstract<T>::getSize() {
+	Integer AbstractArrayContainer<T>::getSize() {
 		return order_.toIndex();
 	}
 
 	template <typename T>
-	Subscript ArrayContainer::Abstract<T>::getOrder() {
+	Subscript AbstractArrayContainer<T>::getOrder() {
 		return order_;
 	}
 }

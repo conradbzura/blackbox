@@ -26,10 +26,9 @@ namespace blackbox {
 	}
 
 	template <typename T>
-	template <typename V>
-	void LogService<T>::log(std::string file, int line, std::string message) {
+	void LogService<T>::log(std::string severity, std::string file, int line, std::string message) {
 		mutex_.lock();
-		stream_->write(getLogEntry(V(), file, line, message));
+		stream_->write(buildEntry(severity, file, line, message));
 		mutex_.unlock();
 	}
 
@@ -43,17 +42,17 @@ namespace blackbox {
 	}
 
 	template <typename T>
-	std::string LogService<T>::getLogHeader() {
+	std::string LogService<T>::buildHeader() {
 		std::stringstream logHeader;
-		logHeader << "SEVERITY" << DELIM << "TIMESTAMP" << DELIM << "FILE" << DELIM << "LINE" << DELIM << "MESSAGE";
-		return logHeader.str();
+		header << "SEVERITY" << DELIM << "TIMESTAMP" << DELIM << "FILE" << DELIM << "LINE" << DELIM << "MESSAGE";
+		return header.str();
 	}
 
 	template <typename T>
-	std::string LogService<T>::getLogEntry(std::string severity, std::string file, int line, std::string message) {
+	std::string LogService<T>::buildEntry(std::string severity, std::string file, int line, std::string message) {
 		std::stringstream logEntry;
-		logEntry << severity << DELIM << getTime() << DELIM << file << DELIM << line << DELIM << "\"" << message << "\"";
-		return logEntry.str();
+		entry << severity << DELIM << getTime() << DELIM << file << DELIM << line << DELIM << "\"" << message << "\"";
+		return entry.str();
 	}
 }
 
