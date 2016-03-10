@@ -14,7 +14,7 @@ namespace blackbox {
 			throw (std::runtime_error(errorMessage));
 		}
 		stream_->open();
-		stream_->write(getLogHeader());
+		stream_->write(buildHeader());
 	}
 
 	template <typename T>
@@ -43,14 +43,14 @@ namespace blackbox {
 
 	template <typename T>
 	std::string LogService<T>::buildHeader() {
-		std::stringstream logHeader;
+		std::stringstream header;
 		header << "SEVERITY" << DELIM << "TIMESTAMP" << DELIM << "FILE" << DELIM << "LINE" << DELIM << "MESSAGE";
 		return header.str();
 	}
 
 	template <typename T>
 	std::string LogService<T>::buildEntry(std::string severity, std::string file, int line, std::string message) {
-		std::stringstream logEntry;
+		std::stringstream entry;
 		entry << severity << DELIM << getTime() << DELIM << file << DELIM << line << DELIM << "\"" << message << "\"";
 		return entry.str();
 	}

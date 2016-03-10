@@ -73,24 +73,24 @@ namespace blackbox {
 		int condition_ = -1;
 	};
 
-	#if MODE >= Mode::Debug
+	#if MODE > 3
 	#define DEBUG(message) DebugEvent(__FILE__, __LINE__, message).handle()//EventService::Instance().handle(__FILE__, __LINE__, DebugEvent(message))
 	#define ASSERT(message, condition) DebugEvent(__FILE__, __LINE__, message, condition).handle()//EventService::Instance().handle(__FILE__, __LINE__, DebugEvent(message), condition)
 	#else
 	#define DEBUG(...)
 	#define ASSERT(...)
 	#endif
-	#if MODE >= Mode::Diagnostic
+	#if MODE > 2
 	#define INFO(message) DiagnosticEvent(__FILE__, __LINE__, message).handle()//EventService::Instance().handle(__FILE__, __LINE__, DiagnosticEvent(message))
 	#else
 	#define INFO(...)
 	#endif
-	#if MODE >= Mode::Release
+	#if MODE > 1
 	#define WARNING(message) WarningEvent(__FILE__, __LINE__, message).handle()//EventService::Instance().handle__FILE__, __LINE__, (WarningEvent(message))
 	#else
 	#define WARNING(...)
 	#endif
-	#if MODE >= Mode::Release
+	#if MODE > 0
 	#define ERROR(message) ErrorEvent(__FILE__, __LINE__, message).handle()//EventService::Instance().handle(__FILE__, __LINE__, ErrorEvent(message))
 	#else
 	#define ERROR(...)

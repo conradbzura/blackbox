@@ -203,17 +203,18 @@ void test2(Order o) {
 	o.toIndex();
 }
 */
-#define MODE 1
+
+#include "context/Mode.h"
+#define MODE BETA_MODE
 
 //#include "array/SimpleContainer.h"
 //#include "array/AbstractContainer.h"
 #include "array/ArrayContainer.h"
-#include "log/LogStream.h"
-#include "log/Log.h"
+#include "event/Event.h"
 
 void test5() {
 	using namespace blackbox;
-	ERROR("Error occurred here");
+	WARNING("Warning occurred here");
 	int three = 3;
 	SimpleArrayContainer<int> a({ three, 3 });
 	a = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };

@@ -4,7 +4,7 @@ namespace blackbox {
 	const std::string ImplementationWarning::START_OF_FUNCTION_SIGNATURE_ = "__thiscall";
 	const std::string ImplementationWarning::STRING_TO_NEUTER_ = "class ";
 
-	ImplementationWarning::ImplementationWarning(std::string functionName, std::string className) : Event(format(functionName, className)) {
+	ImplementationWarning::ImplementationWarning(std::string functionName, std::string className) : EventMessage(format(functionName, className)) {
 		//noop
 	}
 

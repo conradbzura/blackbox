@@ -3,7 +3,7 @@
 #include <typeinfo>
 
 #include "event/ImplementationWarning.h"
-#include "log/Log.h"
+#include "event/Event.h"
 
 namespace blackbox {
 
