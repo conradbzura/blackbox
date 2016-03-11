@@ -205,12 +205,12 @@ void test2(Order o) {
 */
 
 #include "context/Mode.h"
-#define MODE BETA_MODE
+
 
 //#include "array/SimpleContainer.h"
 //#include "array/AbstractContainer.h"
 #include "array/ArrayContainer.h"
-#include "event/Event.h"
+#include "event/EventHandler/EventHandler.h"
 
 void test5() {
 	using namespace blackbox;

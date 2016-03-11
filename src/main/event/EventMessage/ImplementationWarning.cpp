@@ -4,13 +4,7 @@ namespace blackbox {
 	const std::string ImplementationWarning::START_OF_FUNCTION_SIGNATURE_ = "__thiscall";
 	const std::string ImplementationWarning::STRING_TO_NEUTER_ = "class ";
 
-	ImplementationWarning::ImplementationWarning(std::string functionName, std::string className) : EventMessage(format(functionName, className)) {
-		//noop
-	}
-
-	ImplementationWarning::~ImplementationWarning() {
-		//noop
-	}
+	ImplementationWarning::ImplementationWarning(std::string functionName, std::string className) : EventMessage(format(functionName, className)) {}
 
 	std::string ImplementationWarning::format(std::string functionName, std::string className) {
 		return "No override found for method [" + neuter(trimFunctionName(functionName)) + "] in class [" + neuter(className) + "] - executing default implementation.";

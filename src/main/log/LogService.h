@@ -15,14 +15,15 @@ namespace blackbox {
 		LogService();
 		~LogService();
 
-		void log(std::string severity, std::string file, int line, std::string message);
+		void log(std::string type, std::string message, std::string file, int line);
 
 	private:
 		std::string getTime();
 		std::string buildHeader();
-		std::string buildEntry(std::string severity, std::string file, int line, std::string message);
+		std::string buildEntry(int index, std::string type, std::string message, std::string file, int line);
 
 		T* stream_;
+		int index_ = 1;
 		std::mutex mutex_;
 		static const char* DELIM;
 	};

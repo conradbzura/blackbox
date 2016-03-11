@@ -2,8 +2,8 @@
 
 #include <typeinfo>
 
-#include "event/ImplementationWarning.h"
-#include "event/Event.h"
+#include "event/EventMessage/ImplementationWarning.h"
+#include "event/EventHandler/EventHandler.h"
 
 namespace blackbox {
 

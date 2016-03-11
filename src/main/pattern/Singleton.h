@@ -2,6 +2,7 @@
 #define __SINGLETON_H__
 
 namespace blackbox {
+
 	template <class Class>
 	class Singleton {
 	public:
@@ -9,8 +10,8 @@ namespace blackbox {
 		static Class& New();
 
 	protected:
-		Singleton();
-		~Singleton();
+		Singleton() = default;
+		~Singleton() = default;
 
 	private:
 		Singleton(Singleton const&) = delete;
@@ -18,6 +19,7 @@ namespace blackbox {
 
 		static Class* instance_;
 	};
+
 }
 
 #include "Singleton.cpp"

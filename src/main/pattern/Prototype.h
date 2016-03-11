@@ -4,18 +4,17 @@
 #include <memory>
 
 namespace blackbox {
-	template <class C>
+
+	template <class Class>
 	class Prototype {
 	public:
-		Prototype();
-		~Prototype();
+		Prototype() = default;
+		~Prototype() = default;
 
-		// pure virtual
-		virtual std::auto_ptr<C> create() = 0;
-		virtual std::auto_ptr<C> clone() = 0;
+		virtual std::auto_ptr<Class> create() = 0;
+		virtual std::auto_ptr<Class> clone() = 0;
 	};
-}
 
-#include "Prototype.cpp"
+}
 
 #endif
