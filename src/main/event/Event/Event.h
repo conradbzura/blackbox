@@ -6,7 +6,6 @@
 
 #include "log/Log.h"
 #include "context/Mode.h"
-#include "pattern/Visitable.h"
 
 namespace blackbox {
 	class Event {

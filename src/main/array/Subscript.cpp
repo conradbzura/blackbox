@@ -15,11 +15,11 @@ namespace blackbox {
 		//noop
 	}
 
-	Index Subscript::toIndex() {
+	Index Subscript::toIndex() const {
 		return this->toIndex(*this);
 	}
 
-	Index Subscript::toIndex(Subscript ceiling) {
+	Index Subscript::toIndex(Subscript ceiling) const {
 		Integer index = 1;
 		int n = 1;
 		for (int i = 0; i < ceiling.size(); i++) {

@@ -6,8 +6,6 @@
 #include "context/Mode.h"
 #include "log/Log.h"
 #include "pattern/Singleton.h"
-#include "pattern/Visitable.h"
-#include "pattern/Visitor.h"
 
 #include "event/Event/Event.h"
 

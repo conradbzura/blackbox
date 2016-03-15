@@ -11,8 +11,8 @@ namespace blackbox {
 		Prototype() = default;
 		~Prototype() = default;
 
-		virtual std::auto_ptr<Class> create() = 0;
-		virtual std::auto_ptr<Class> clone() = 0;
+		virtual std::auto_ptr<Class> create() const = 0;
+		virtual std::auto_ptr<Class> clone() const = 0;
 	};
 
 }

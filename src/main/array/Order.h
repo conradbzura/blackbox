@@ -10,7 +10,7 @@ namespace blackbox {
 		~Order();
 
 		operator Subscript();
-		Index toIndex();
+		Index toIndex() const;
 	};
 }
 

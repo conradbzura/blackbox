@@ -14,8 +14,8 @@ namespace blackbox {
 		Subscript(std::initializer_list<Integer> subscript);
 		~Subscript();
 
-		Index toIndex();
-		Index toIndex(Subscript ceiling);
+		Index toIndex() const;
+		Index toIndex(Subscript ceiling) const;
 	};
 }
 

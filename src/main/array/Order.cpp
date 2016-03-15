@@ -15,7 +15,7 @@ namespace blackbox {
 		return Subscript(*this);
 	}
 
-	Index Order::toIndex() {
+	Index Order::toIndex() const {
 		return Subscript::toIndex(*this);
 	}
 }
