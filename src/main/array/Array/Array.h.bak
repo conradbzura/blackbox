@@ -2,7 +2,6 @@
 #define __ARRAY_H__
 
 #include "array/IArray.h"
-#include "array/Array/SubArray.h"
 #include "array/ArrayStrategy/ArrayOperator/AdditionOperator.h"
 #include "array/Index.h"
 #include "array/Range.h"
@@ -32,19 +31,17 @@ namespace blackbox
 		using IArray<T>::at;
 
 		auto at(Index index) 
-			-> T&;
+			-> std::shared_ptr<T>&;
 
 		auto at(Index index) const 
-			-> T const&;
+			-> std::shared_ptr<T> const&;
 
-		// IArray virtual override declarations
+		// Prototype virtual override declarations
 		virtual std::auto_ptr<IArray<T>> create(Subscript order) const;
-
-		virtual std::auto_ptr<IArray<T>> createSubArray(IArray<T>& array, Range range);
 
 	protected:
 
-		std::vector<T> data_;
+		std::vector<std::shared_ptr<T>> data_;
 
 	};
 

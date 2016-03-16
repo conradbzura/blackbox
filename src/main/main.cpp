@@ -224,14 +224,16 @@ void test5() {
 	IArray<int>* b = new Array<int>({ 1, 3 });
 	Subscript s({ 1, 3 });
 	Index I = s.toIndex();
-	std::shared_ptr<int> i = a.at(4);
-	*a.at(4) = 1;
-	std::shared_ptr<int> j = a.at(s);
+	//std::shared_ptr<int> i = a.at(4);
+	int i = a.at(4);
+	//*a.at(4) = 1;
+	//std::shared_ptr<int> j = a.at(s);
+	int *j = &a.at(s);
 	int thirty = 30;
-	*j = thirty;
-	j.swap(std::make_shared<int>(30));
+	//*j = thirty;
+	//j.swap(std::make_shared<int>(30));
 	Range r(s);
-	a.at(r);
+	*a.at(r) = { 13, 13, 13 };
 	std::auto_ptr<IArray<int>> test;// = 
 }
 
