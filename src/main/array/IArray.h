@@ -62,8 +62,8 @@ namespace blackbox
 		virtual std::auto_ptr<IArray<T>> create(Subscript order) const = 0;
 
 	protected:
-		virtual std::auto_ptr<IArray<T>> getSubArray_(IArray<T>& array, Range range) = 0;
-		virtual std::auto_ptr<IArray<T>> getSubArray_(IArray<T> const& array, Range range) const = 0;
+		virtual std::auto_ptr<IArray<T>> getHandle_(IArray<T>& array, Range range) = 0;
+		virtual std::auto_ptr<IArray<T>> getHandle_(IArray<T> const& array, Range range) const = 0;
 		
 		Subscript order_;
 
@@ -83,7 +83,7 @@ namespace blackbox
 	{
 		//TODO implement new EventMessage for range out of bounds
 		ASSERT("", range.getCeiling() <= order_);
-		return this->getSubArray_(*this, range);
+		return this->getHandle_(*this, range);
 	}
 
 	template <typename T> T& IArray<T>::operator [](Index index)
@@ -109,7 +109,7 @@ namespace blackbox
 	template <typename T> auto IArray<T>::at(Range range) const -> std::auto_ptr<const IArray<T>>
 	{
 		ASSERT("", range.getCeiling() <= order_); //TODO implement new EventMessage for range out of bounds
-		return this->getSubArray_(*this, range);
+		return this->getHandle_(*this, range);
 	}
 
 	template <typename T> T const& IArray<T>::operator [](Index index) const

@@ -5,15 +5,15 @@
 
 namespace blackbox
 {
-	template <typename T> class Array;
-	template <typename T> class SubArray : public IArray<T>
+	template <typename T> class BasicArray;
+	template <typename T> class BasicArrayHandle : public virtual IArray<T>
 	{
-		friend class Array<T>;
+		friend class BasicArray<T>;
 		
-		SubArray() = delete; //TODO? implement
+		BasicArrayHandle() = delete; //TODO? implement
 
 	public:
-		virtual ~SubArray() = default;
+		virtual ~BasicArrayHandle() = default;
 
 		// accessor methods
 		using IArray<T>::at;
@@ -24,20 +24,20 @@ namespace blackbox
 
 		virtual std::auto_ptr<IArray<T>> create(Subscript order) const;
 
-		SubArray<T>& operator =(std::initializer_list<T> values);
+		BasicArrayHandle<T>& operator =(std::initializer_list<T> values);
 
 	protected:
-		SubArray(IArray<T> const& array, Range range);
-		SubArray(SubArray<T> const& array, Range range);
+		BasicArrayHandle(IArray<T> const& array, Range range);
+		BasicArrayHandle(BasicArrayHandle<T> const& array, Range range);
 
-		virtual std::auto_ptr<IArray<T>> getSubArray_(IArray<T>& array, Range range);
-		virtual std::auto_ptr<IArray<T>> getSubArray_(IArray<T> const& array, Range range) const;
+		virtual std::auto_ptr<IArray<T>> getHandle_(IArray<T>& array, Range range);
+		virtual std::auto_ptr<IArray<T>> getHandle_(IArray<T> const& array, Range range) const;
 
 		std::vector<T*> data_;
 
 	};
 
-	template <typename T> SubArray<T>::SubArray(IArray<T> const& array, Range range) :
+	template <typename T> BasicArrayHandle<T>::BasicArrayHandle(IArray<T> const& array, Range range) :
 		IArray<T>(range.getOrder()),
 		data_(range.getOrder().toIndex())
 	{
@@ -50,7 +50,7 @@ namespace blackbox
 		}
 	}
 
-	template <typename T> SubArray<T>::SubArray(SubArray<T> const& array, Range range) :
+	template <typename T> BasicArrayHandle<T>::BasicArrayHandle(BasicArrayHandle<T> const& array, Range range) :
 		ISubArray<T>(range.getOrder()),
 		data_(range.getOrder().toIndex())
 	{
@@ -63,8 +63,9 @@ namespace blackbox
 		}
 	}
 
-	template <typename T> SubArray<T>& SubArray<T>::operator =(std::initializer_list<T> values)
+	template <typename T> BasicArrayHandle<T>& BasicArrayHandle<T>::operator =(std::initializer_list<T> values)
 	{
+		//TODO implement new EventMessage for order mismatch
 		ASSERT("", values.size() == order_.toIndex());
 		int i = 0;
 		for (T value : values) {
@@ -74,33 +75,33 @@ namespace blackbox
 		return *this;
 	}
 
-	template <typename T> auto SubArray<T>::at(Index index) -> T&
+	template <typename T> auto BasicArrayHandle<T>::at(Index index) -> T&
 	{
 		//TODO implement new EventMessage for subscript/index out of bounds
 		ASSERT("", index <= order_.toIndex());
 		return *data_.at(index - 1);
 	}
 
-	template <typename T> auto SubArray<T>::at(Index index) const -> T const&
+	template <typename T> auto BasicArrayHandle<T>::at(Index index) const -> T const&
 	{
 		//TODO implement new EventMessage for subscript/index out of bounds
 		ASSERT("", index <= order_.toIndex());
 		return *data_.at(index - 1);
 	}
 
-	template <typename T> std::auto_ptr<IArray<T>> SubArray<T>::create(Subscript order) const
+	template <typename T> std::auto_ptr<IArray<T>> BasicArrayHandle<T>::create(Subscript order) const
 	{
 		return std::auto_ptr<IArray<T>>(); //TODO implement or remove
 	}
 
-	template <typename T> std::auto_ptr<IArray<T>> SubArray<T>::getSubArray_(IArray<T>& array, Range range)
+	template <typename T> std::auto_ptr<IArray<T>> BasicArrayHandle<T>::getHandle_(IArray<T>& array, Range range)
 	{
-		return std::auto_ptr<IArray<T>>(new SubArray<T>(array, range));
+		return std::auto_ptr<IArray<T>>(new BasicArrayHandle<T>(array, range));
 	}
 
-	template <typename T> std::auto_ptr<IArray<T>> SubArray<T>::getSubArray_(IArray<T> const& array, Range range) const
+	template <typename T> std::auto_ptr<IArray<T>> BasicArrayHandle<T>::getHandle_(IArray<T> const& array, Range range) const
 	{
-		return std::auto_ptr<IArray<T>>(new SubArray<T>(array, range));
+		return std::auto_ptr<IArray<T>>(new BasicArrayHandle<T>(array, range));
 	}
 
 } // blackbox

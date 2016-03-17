@@ -209,24 +209,24 @@ void test2(Order o) {
 
 //#include "array/SimpleContainer.h"
 //#include "array/AbstractContainer.h"
-#include "array/Array/Array.h"
+#include "array/Array/BasicArray.h"
 #include "event/EventHandler/EventHandler.h"
 
 void test5() {
 	using namespace blackbox;
 	WARNING("Warning occurred here");
 	int three = 3;
-	Array<int> a({ three, 3 });
-	Array<int> A({ 3, 3 });
+	BasicArray<int> a({ three, 3 });
+	BasicArray<int> A({ 3, 3 });
 	a = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	A = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	std::auto_ptr<IArray<int>> SUM(a + A);
-	IArray<int>* b = new Array<int>({ 1, 3 });
+	IArray<int>* b = new BasicArray<int>({ 1, 3 });
 	Subscript s({ 1, 3 });
 	Index I = s.toIndex();
 	//std::shared_ptr<int> i = a.at(4);
 	int i = a.at(4);
-	a.at(25) = 100;
+	a.at(7) = 100;
 	//*a.at(4) = 1;
 	//std::shared_ptr<int> j = a.at(s);
 	int *j = &a.at(s);
