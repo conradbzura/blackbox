@@ -13,63 +13,40 @@
 
 namespace blackbox 
 {
-	template <typename T>
-	class ISubArray;
-
-	template <typename T>
-	class IArray: 
-		public Prototype<IArray<T>> 
+	template <typename T> class ISubArray;
+	template <typename T> class IArray : public Prototype<IArray<T>> 
 	{
+		IArray() = delete; //TODO? implement
 
 	public:
-
-		// IArray concrete declarations
-		IArray() = delete;
-
 		IArray(Subscript order);
 
-		virtual IArray<T>& operator =(std::initializer_list<T> values) = 0;
-
-		auto at(Subscript subscript) 
-			-> T&;
-
-		auto at(Subscript subscript) const 
-			-> T const&;
-
-		auto at(Subscript floor, Subscript ceiling) 
-			-> std::auto_ptr<IArray<T>>;
-
-		auto at(Subscript floor, Subscript ceiling) const 
-			-> std::auto_ptr<IArray<T>>;
-
-		// Prototype virtual override declarations
-		virtual std::auto_ptr<IArray<T>> clone() const;
-
-		virtual std::auto_ptr<IArray<T>> create() const;
-
-		// IArray virtual declarations
 		virtual ~IArray() = default;
+		
+		// accessor methods
+		virtual auto at(Index index) -> T& = 0;
+		auto at(Subscript subscript) -> T&;
+		virtual auto at(Range range) -> std::auto_ptr<IArray<T>>;
 
-		virtual auto at(Range range) 
-			-> std::auto_ptr<IArray<T>>;
+		T& operator [](Index index);
+		T& operator [](Subscript subscript);
+		std::auto_ptr<IArray<T>> operator [](Range range);
 
-		virtual auto at(Range range) const 
-			-> std::auto_ptr<IArray<T>>;
+		// const accessor methods
+		virtual auto at(Index index) const -> T const& = 0;
+		auto at(Subscript subscript) const -> T const&;
+		virtual auto at(Range range) const -> std::auto_ptr<const IArray<T>>;
+
+		T const& operator [](Index index) const;
+		T const& operator [](Subscript subscript) const;
+		std::auto_ptr<const IArray<T>> operator [](Range range) const;
+
 
 		virtual Integer getSize() const;
 
 		virtual Subscript getOrder() const;
 
-		// IArray pure virtual declarations
-		virtual std::auto_ptr<IArray<T>> create(Subscript order) const = 0; //TODO? make protected
-
-		virtual std::auto_ptr<IArray<T>> createSubArray(IArray<T>& array, Range range) = 0; //TODO? make protected
-
-		virtual auto at(Index index) 
-			-> T& = 0;
-
-		virtual auto at(Index index) const 
-			-> T const& = 0;
+		virtual IArray<T>& operator =(std::initializer_list<T> values) = 0;
 		/*
 		virtual std::auto_ptr<IArray<T>> operator +(IArray<T>& that) = 0;
 
@@ -79,85 +56,88 @@ namespace blackbox
 
 		virtual std::auto_ptr<IArray<T>> operator /(IArray<T>& that) = 0;
 		*/
-	protected:
+		virtual std::auto_ptr<IArray<T>> clone() const;
 
+		virtual std::auto_ptr<IArray<T>> create() const;
+		virtual std::auto_ptr<IArray<T>> create(Subscript order) const = 0;
+
+	protected:
+		virtual std::auto_ptr<IArray<T>> getSubArray_(IArray<T>& array, Range range) = 0;
+		virtual std::auto_ptr<IArray<T>> getSubArray_(IArray<T> const& array, Range range) const = 0;
+		
 		Subscript order_;
 
 	};
 
-	template <typename T>
-	IArray<T>::IArray(Subscript order) :
-		order_(order)
+	template <typename T> IArray<T>::IArray(Subscript order) : order_(order)
 	{
 		//noop
 	}
 
-	template <typename T>
-	auto IArray<T>::at(Subscript subscript)
-		-> T&
+	template <typename T> auto IArray<T>::at(Subscript subscript) -> T&
 	{
 		return this->at(subscript.toIndex(order_));
 	}
 
-	template <typename T>
-	auto IArray<T>::at(Subscript subscript) const
-		-> T const&
+	template <typename T> auto IArray<T>::at(Range range) -> std::auto_ptr<IArray<T>>
+	{
+		//TODO implement new EventMessage for range out of bounds
+		ASSERT("", range.getCeiling() <= order_);
+		return this->getSubArray_(*this, range);
+	}
+
+	template <typename T> T& IArray<T>::operator [](Index index)
+	{
+		return this->at(index);
+	}
+
+	template <typename T> T& IArray<T>::operator [](Subscript subscript)
+	{
+		return this->at(subscript);
+	}
+
+	template <typename T> std::auto_ptr<IArray<T>> IArray<T>::operator [](Range range)
+	{
+		return this->at(range);
+	}
+
+	template <typename T> auto IArray<T>::at(Subscript subscript) const -> T const&
 	{
 		return this->at(subscript.toIndex(order_));
 	}
 
-	template <typename T>
-	auto IArray<T>::at(Subscript floor, Subscript ceiling)
-		-> std::auto_ptr<IArray<T>>
+	template <typename T> auto IArray<T>::at(Range range) const -> std::auto_ptr<const IArray<T>>
 	{
-		return this->at(Range(floor, ceiling));
+		ASSERT("", range.getCeiling() <= order_); //TODO implement new EventMessage for range out of bounds
+		return this->getSubArray_(*this, range);
 	}
 
-	template <typename T>
-	auto IArray<T>::at(Subscript floor, Subscript ceiling) const
-		-> std::auto_ptr<IArray<T>>
+	template <typename T> T const& IArray<T>::operator [](Index index) const
 	{
-		return this->at(Range(floor, ceiling));
+		return this->at(index);
 	}
 
-	template <typename T>
-	auto IArray<T>::at(Range range)
-		-> std::auto_ptr<IArray<T>>
+	template <typename T> T const& IArray<T>::operator [](Subscript subscript) const
 	{
-		WARNING(__IMPLEMENTATION_WARNING__);
-		return this->createSubArray(*this, range);
+		return this->at(subscript);
 	}
 
-	template <typename T>
-	auto IArray<T>::at(Range range) const
-		-> std::auto_ptr<IArray<T>>
+	template <typename T> std::auto_ptr<const IArray<T>> IArray<T>::operator [](Range range) const
 	{
-		WARNING(__IMPLEMENTATION_WARNING__);
-		std::auto_ptr<IArray<T>> replica = this->create(range.getOrder());
-		Range newRange(range.getOrder());
-		Range::Iterator n = newRange.getIterator(range.getFloor());
-		for (Range::Iterator i = range.getIterator(range.getFloor()); i <= range.getCeiling(); ++i)
-		{
-			replica->at(n) = this->at(i);
-			++n;
-		}
-		return replica;
+		return this->at(range);
 	}
 
-	template <typename T>
-	Integer IArray<T>::getSize() const
+	template <typename T> Integer IArray<T>::getSize() const
 	{
 		return order_.toIndex();
 	}
 
-	template <typename T>
-	Subscript IArray<T>::getOrder() const
+	template <typename T> Subscript IArray<T>::getOrder() const
 	{
 		return order_;
 	}
 
-	template <typename T>
-	std::auto_ptr<IArray<T>> IArray<T>::clone() const
+	template <typename T> std::auto_ptr<IArray<T>> IArray<T>::clone() const
 	{
 		WARNING(__IMPLEMENTATION_WARNING__);
 		std::auto_ptr<IArray<T>> replica = this->create();
@@ -171,13 +151,12 @@ namespace blackbox
 		return replica;
 	}
 
-	template <typename T>
-	std::auto_ptr<IArray<T>> IArray<T>::create() const
+	template <typename T> std::auto_ptr<IArray<T>> IArray<T>::create() const
 	{
 		return this->create(order_);
 	}
 
-}
+} // blackbox
 
 #include "IArray.cpp"
 

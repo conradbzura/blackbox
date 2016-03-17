@@ -31,7 +31,8 @@ namespace blackbox {
 	}
 
 	void LogStream::File::write(const std::string& message) {
-		(*stream_) << message << CRLF;
+		*stream_ << message << CRLF;
+		stream_->flush();
 	}
 
 	LogStream::Database::Database() {

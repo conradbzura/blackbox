@@ -23,7 +23,7 @@ namespace blackbox {
 		void handle(DebugEvent& visitee);
 	};
 
-	#define MODE BETA_MODE
+	#define MODE DEBUG_MODE
 
 	#if MODE >= ALPHA_MODE
 	#define ERROR(message) EventHandler::Instance().handle(ErrorEvent(message, __FILE__, __LINE__))
