@@ -213,7 +213,17 @@ void test2(Order o) {
 #include "event/EventHandler/EventHandler.h"
 
 void test5() {
+
 	using namespace blackbox;
+	Subscript sub({ 2, 2 });
+	Index ind = sub.toIndex({ 3, 3 });
+	sub = ind.toSubscript({ 3, 3 });
+
+	for (int i = 1; i < 28; i++)
+	{
+		Subscript ss = Index(i).toSubscript({ 3, 3, 3 });
+	}
+
 	WARNING("Warning occurred here");
 	int three = 3;
 	BasicArray<int> a({ three, 3 });

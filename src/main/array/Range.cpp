@@ -26,6 +26,21 @@ namespace blackbox {
 		return ceiling_;
 	}
 
+	Subscript Range::map(Subscript subscript) {
+		if (floor_ == std::vector<Integer>(floor_.size(), 1))
+		{
+			return subscript;
+		}
+		else
+		{
+			for (int i = 0; i < floor_.size(); i++)
+			{
+				subscript.at(i) += floor_.at(i) - 1;
+			}
+			return subscript;
+		}
+	}
+
 	Order Range::getOrder() {
 		Order order;
 		for (int i = 0; i < floor_.size(); i++) {

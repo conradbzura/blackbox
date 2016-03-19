@@ -7,6 +7,10 @@ namespace blackbox {
 		//noop
 	}
 
+	Subscript::Subscript(std::vector<Integer> subscript) : std::vector<Integer>(subscript) {
+		//noop
+	}
+
 	Subscript::Subscript(std::initializer_list<Integer> subscript) : std::vector<Integer>(subscript) {
 		//noop
 	}

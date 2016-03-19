@@ -2,7 +2,6 @@
 #define __ARRAY_H__
 
 #include "array/IArray.h"
-#include "array/Array/BasicSubArray.h"
 #include "array/ArrayStrategy/ArrayOperator/AdditionOperator.h"
 #include "array/Index.h"
 #include "array/Range.h"
@@ -32,15 +31,14 @@ namespace blackbox
 		virtual std::auto_ptr<IArray<T>> create(Subscript order) const;
 
 	protected:
-		virtual std::auto_ptr<IArray<T>> getHandle_(IArray<T>& array, Range range);
-		virtual std::auto_ptr<IArray<T>> getHandle_(IArray<T> const& array, Range range) const;
-
 		std::vector<T> data_;
+
+		
 
 	};
 
 	template <typename T>
-	BasicArray<T>::BasicArray(Subscript order) : IArray<T>(order), data_(order.toIndex())
+	BasicArray<T>::BasicArray(Subscript order) : IArray<T>(order), data_(size_)
 	{
 		for (int i = 0; i < order.toIndex(); i++) {
 			data_.at(i) = T();
@@ -80,18 +78,6 @@ namespace blackbox
 	std::auto_ptr<IArray<T>> BasicArray<T>::create(Subscript order) const
 	{
 		return std::auto_ptr<IArray<T>>(new BasicArray<T>(order));
-	}
-
-	template <typename T>
-	std::auto_ptr<IArray<T>> BasicArray<T>::getHandle_(IArray<T>& array, Range range)
-	{
-		return std::auto_ptr<IArray<T>>(new BasicArrayHandle<T>(array, range));
-	}
-
-	template <typename T>
-	std::auto_ptr<IArray<T>> BasicArray<T>::getHandle_(IArray<T> const& array, Range range) const
-	{
-		return std::auto_ptr<IArray<T>>(new BasicArrayHandle<T>(array, range));
 	}
 
 } // blackbox

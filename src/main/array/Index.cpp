@@ -19,21 +19,19 @@ namespace blackbox {
 	}
 
 	Subscript Index::toSubscript(Subscript ceiling) {
-		Subscript subscript, n;
-		subscript.resize(ceiling.size());
-		n.resize(ceiling.size());
-		for (int i = 0; i < ceiling.size(); i++) {
-			n.at(i) = 1;
-			for (int j = ceiling.size() - 1; j > i; j++) {
-				n.at(i) *= ceiling.at(j);
-			}
+		std::vector<Integer> cumulativeProduct(ceiling.size(), 1);
+		for (int i = 1; i < ceiling.size(); i++)
+		{
+			cumulativeProduct.at(i) = cumulativeProduct.at(i - 1) * ceiling.at(i - 1);
 		}
-		for (int i = 0; i < ceiling.size(); i++) {
-			subscript.at(i) = index_;
-			for (int j = 0; j < i; j++) {
-				subscript.at(i) = subscript.at(i) % n.at(j);
-			}
+		std::vector<Integer> subscript(ceiling.size(), 1);
+		int j = ceiling.size() - 1;
+		int index = index_ - 1;
+		while (j >= 0)
+		{
+			subscript.at(j) += index / cumulativeProduct.at(j);
+			index %= cumulativeProduct.at(j--);
 		}
-		return subscript;
+		return Subscript(subscript);
 	}
 }

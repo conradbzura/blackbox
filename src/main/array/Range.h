@@ -40,6 +40,7 @@ namespace blackbox {
 
 		Subscript getFloor();
 		Subscript getCeiling();
+		Subscript map(Subscript subscript);
 		Order getOrder();
 		Iterator getIterator(Subscript origin);
 
