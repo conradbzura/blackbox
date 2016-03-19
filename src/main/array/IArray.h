@@ -15,11 +15,12 @@ namespace blackbox
 {
 	template <typename T> class IArray : public Prototype<IArray<T>>
 	{
-		IArray() = delete; //TODO? implement
 
 	public:
-		IArray(Subscript order);
+		IArray() = default; //TODO? implement
 
+		IArray(Subscript order);
+		
 		virtual ~IArray() = default;
 
 		// accessor methods
