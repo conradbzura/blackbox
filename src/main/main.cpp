@@ -228,11 +228,14 @@ void test5() {
 	int three = 3;
 	BasicArray<int> a({ three, 3 });
 	BasicArray<int> A({ 3, 3 });
+	BasicArray<int> subA({ 2, 2 });
 	a = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-	A = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-	std::auto_ptr<IArray<int>> SUM(a + A);
-	IArray<int>* b = new BasicArray<int>({ 1, 3 });
-	Subscript s({ 1, 3 });
+	A = { 1, 2, 3, 4, 5, 6, 7, 8, 100 };
+	subA = { 10, 20, 30, 40 };
+	std::auto_ptr<AbstractArray<int>> SUM(a + A);
+	AbstractArray<int>* b = new BasicArray<int>({ 1, 3 });
+	Subscript s({ 2, 2 });
+	Subscript S({ 3, 3 });
 	Index I = s.toIndex();
 	//std::shared_ptr<int> i = a.at(4);
 	int i = a.at(4);
@@ -244,8 +247,10 @@ void test5() {
 	//*j = thirty;
 	//j.swap(std::make_shared<int>(30));
 	Range r(s);
-	a.at(r).at(r) = { 13, 13, 13 };
-	std::auto_ptr<IArray<int>> test;// = 
+	Range R(s, S);
+	a[r][r] = { 13, 13, 13, 13 };
+	a.at(r) = subA;
+	std::auto_ptr<AbstractArray<int>> test;// = 
 }
 
 void fake(int& i) {

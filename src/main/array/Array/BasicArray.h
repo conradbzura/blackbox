@@ -1,7 +1,7 @@
 #ifndef __ARRAY_H__
 #define __ARRAY_H__
 
-#include "array/IArray.h"
+#include "array/AbstractArray.h"
 #include "array/ArrayStrategy/ArrayOperator/AdditionOperator.h"
 #include "array/Index.h"
 #include "array/Range.h"
@@ -10,7 +10,7 @@
 namespace blackbox 
 {
 	template <typename T>
-	class BasicArray : public virtual IArray<T>, public virtual AdditionOperator<T> 
+	class BasicArray : public virtual AbstractArray<T>, public virtual AdditionOperator<T> 
 	{
 		BasicArray() = delete;
 
@@ -20,7 +20,7 @@ namespace blackbox
 		virtual ~BasicArray() = default;
 		
 		// accessor methods
-		using IArray<T>::at;
+		using AbstractArray<T>::at;
 		auto at(Index index) -> T&;
 
 		// const accessor methods
@@ -28,7 +28,7 @@ namespace blackbox
 
 		BasicArray<T>& operator =(std::initializer_list<T> values);
 
-		virtual std::auto_ptr<IArray<T>> create(Subscript order) const;
+		virtual std::auto_ptr<AbstractArray<T>> create(Subscript order) const;
 
 	protected:
 		std::vector<T> data_;
@@ -38,7 +38,7 @@ namespace blackbox
 	};
 
 	template <typename T>
-	BasicArray<T>::BasicArray(Subscript order) : IArray<T>(order), data_(size_)
+	BasicArray<T>::BasicArray(Subscript order) : AbstractArray<T>(order), data_(size_)
 	{
 		for (int i = 0; i < order.toIndex(); i++) {
 			data_.at(i) = T();
@@ -75,9 +75,9 @@ namespace blackbox
 	}
 
 	template <typename T>
-	std::auto_ptr<IArray<T>> BasicArray<T>::create(Subscript order) const
+	std::auto_ptr<AbstractArray<T>> BasicArray<T>::create(Subscript order) const
 	{
-		return std::auto_ptr<IArray<T>>(new BasicArray<T>(order));
+		return std::auto_ptr<AbstractArray<T>>(new BasicArray<T>(order));
 	}
 
 } // blackbox

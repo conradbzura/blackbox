@@ -16,7 +16,9 @@ namespace blackbox {
 			operator Subscript();
 
 			void operator ++();
+			void operator ++(int);
 			void operator --();
+			void operator --(int);
 			bool operator ==(Subscript subscript);
 			bool operator !=(Subscript subscript);
 			bool operator <=(Subscript subscript);
@@ -41,7 +43,9 @@ namespace blackbox {
 		Subscript getFloor();
 		Subscript getCeiling();
 		Subscript map(Subscript subscript);
+		Subscript map(Subscript subscript) const;
 		Order getOrder();
+		Iterator getIterator();
 		Iterator getIterator(Subscript origin);
 
 	private:

@@ -27,6 +27,10 @@ namespace blackbox {
 	}
 
 	Subscript Range::map(Subscript subscript) {
+		return const_cast<const Range*>(this)->map(subscript);
+	}
+
+	Subscript Range::map(Subscript subscript) const {
 		if (floor_ == std::vector<Integer>(floor_.size(), 1))
 		{
 			return subscript;
@@ -47,6 +51,11 @@ namespace blackbox {
 			order.push_back(ceiling_.at(i) - floor_.at(i) + 1);
 		}
 		return order;
+	}
+
+	Range::Iterator Range::getIterator() {
+		iterator_.setOrigin(this->getFloor());
+		return iterator_;
 	}
 
 	Range::Iterator Range::getIterator(Subscript origin) {
@@ -70,7 +79,15 @@ namespace blackbox {
 		increment();
 	}
 
+	void Range::Iterator::operator ++(int) {
+		increment();
+	}
+
 	void Range::Iterator::operator --() {
+		decrement();
+	}
+
+	void Range::Iterator::operator --(int) {
 		decrement();
 	}
 
