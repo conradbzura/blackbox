@@ -244,7 +244,7 @@ void test5() {
 	//*j = thirty;
 	//j.swap(std::make_shared<int>(30));
 	Range r(s);
-	*(*a.at(r)).at(r) = { 13, 13, 13 };
+	a.at(r).at(r) = { 13, 13, 13 };
 	std::auto_ptr<IArray<int>> test;// = 
 }
 

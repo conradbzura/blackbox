@@ -3,11 +3,8 @@
 
 namespace blackbox
 {
-	//template <typename T> class IArray;
 	template <typename T> class IArray<T>::SubArray : public virtual IArray<T>
 	{
-		//friend class BasicArray<T>;
-
 		SubArray() = delete; //TODO? implement
 
 	public:
@@ -16,11 +13,11 @@ namespace blackbox
 		// accessor methods
 		using IArray<T>::at;
 		auto at(Index index)->T&;
-		auto at(Range range)->IArray<T>*;
+		auto at(Range range)->SubArray;
 
 		// const accessor methods
-		auto at(Index index) const->T const&;
-		auto at(Range range) const->IArray<T>* const;
+		auto at(Index index) const -> T const&;
+		auto at(Range range) const -> const SubArray;
 
 		virtual std::auto_ptr<IArray<T>> create(Subscript order) const;
 
@@ -30,7 +27,6 @@ namespace blackbox
 		SubArray(const IArray<T>* const array, Range range);
 
 	protected:
-
 		union {
 			IArray<T>* const array_;
 			const IArray<T>* const constArray_;
@@ -67,11 +63,11 @@ namespace blackbox
 		return array_->at(index);
 	}
 
-	template <typename T> auto IArray<T>::SubArray::at(Range range) -> IArray<T>*
+	template <typename T> auto IArray<T>::SubArray::at(Range range) -> SubArray
 	{
 		//TODO implement new EventMessage for range out of bounds
 		ASSERT("", range.getCeiling() <= order_);
-		return new SubArray(array_, range);
+		return SubArray(array_, range);
 	}
 
 	template <typename T> auto IArray<T>::SubArray::at(Index index) const -> T const&
@@ -81,11 +77,11 @@ namespace blackbox
 		return constArray_->at(index);
 	}
 
-	template <typename T> auto IArray<T>::SubArray::at(Range range) const -> IArray<T>* const
+	template <typename T> auto IArray<T>::SubArray::at(Range range) const -> const SubArray
 	{
 		//TODO implement new EventMessage for range out of bounds
 		ASSERT("", range.getCeiling() <= order_);
-		return new SubArray(constArray_, range);
+		return SubArray(constArray_, range);
 	}
 
 	template <typename T> std::auto_ptr<IArray<T>> IArray<T>::SubArray::create(Subscript order) const

@@ -15,7 +15,8 @@ namespace blackbox
 {
 	template <typename T> class IArray : public Prototype<IArray<T>>
 	{
-
+	protected:
+		class SubArray;
 	public:
 		IArray() = default; //TODO? implement
 
@@ -24,18 +25,18 @@ namespace blackbox
 		virtual ~IArray() = default;
 
 		// accessor methods
-		virtual auto at(Index index)->T& = 0;
-		auto at(Subscript subscript)->T&;
-		virtual auto at(Range range)->IArray<T>*;
+		virtual auto at(Index index) -> T& = 0;
+		auto at(Subscript subscript) -> T&;
+		virtual auto at(Range range) -> SubArray;
 
 		T& operator [](Index index);
 		T& operator [](Subscript subscript);
 		IArray<T>& operator [](Range range);
 
 		// const accessor methods
-		virtual auto at(Index index) const->T const& = 0;
-		auto at(Subscript subscript) const->T const&;
-		virtual auto at(Range range) const->IArray<T>* const;
+		virtual auto at(Index index) const -> T const& = 0;
+		auto at(Subscript subscript) const -> T const&;
+		virtual auto at(Range range) const -> const SubArray;
 
 		T const& operator [](Index index) const;
 		T const& operator [](Subscript subscript) const;
@@ -62,7 +63,7 @@ namespace blackbox
 		virtual std::auto_ptr<IArray<T>> create(Subscript order) const = 0;
 
 	protected:
-		class SubArray;
+		//class SubArray;
 
 		Subscript order_;
 
@@ -87,11 +88,11 @@ namespace blackbox
 		return this->at(subscript.toIndex(order_));
 	}
 
-	template <typename T> auto IArray<T>::at(Range range) -> IArray<T>*
+	template <typename T> auto IArray<T>::at(Range range) -> SubArray
 	{
 		//TODO implement new EventMessage for range out of bounds
 		ASSERT("", range.getCeiling() <= order_);
-		return new SubArray(this, range);
+		return SubArray(this, range);
 	}
 
 	template <typename T> T& IArray<T>::operator [](Index index)
@@ -114,11 +115,11 @@ namespace blackbox
 		return this->at(subscript.toIndex(order_));
 	}
 	
-	template <typename T> auto IArray<T>::at(Range range) const -> IArray<T>* const
+	template <typename T> auto IArray<T>::at(Range range) const -> const SubArray
 	{
 		//TODO implement new EventMessage for range out of bounds
 		ASSERT("", range.getCeiling() <= order_);
-		return new SubArray(this, range);
+		return SubArray(this, range);
 	}
 	
 	template <typename T> T const& IArray<T>::operator [](Index index) const
