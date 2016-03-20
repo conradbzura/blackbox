@@ -231,8 +231,9 @@ void test5() {
 	BasicArray<int> subA({ 2, 2 });
 	a = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	A = { 1, 2, 3, 4, 5, 6, 7, 8, 100 };
+	A = a;
 	subA = { 10, 20, 30, 40 };
-	std::auto_ptr<AbstractArray<int>> SUM(a + A);
+//	std::auto_ptr<AbstractArray<int>> SUM(a + A);
 	AbstractArray<int>* b = new BasicArray<int>({ 1, 3 });
 	Subscript s({ 2, 2 });
 	Subscript S({ 3, 3 });
@@ -249,7 +250,8 @@ void test5() {
 	Range r(s);
 	Range R(s, S);
 	a[r][r] = { 13, 13, 13, 13 };
-	a.at(r) = subA;
+	subA = a.at(r);
+	a.at(r) = A[R];
 	std::auto_ptr<AbstractArray<int>> test;// = 
 }
 

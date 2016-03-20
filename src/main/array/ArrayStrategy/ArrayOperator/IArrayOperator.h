@@ -8,6 +8,7 @@ namespace blackbox {
 	class IArrayOperator {
 	public:
 		virtual ~IArrayOperator() = default;
+		/*
 		operator const AbstractArray<T>*() {
 			return dynamic_cast<const AbstractArray<T>*>(this);
 		}
@@ -17,6 +18,7 @@ namespace blackbox {
 		}
 		
 		virtual std::auto_ptr<AbstractArray<T>> execute(AbstractArray<T> const& left, AbstractArray<T> const& right) = 0;
+		*/
 	};
 }
 

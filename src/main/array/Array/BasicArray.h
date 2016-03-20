@@ -1,88 +1,176 @@
-#ifndef __ARRAY_H__
-#define __ARRAY_H__
+#ifndef __BASICARRAY_H__
+#define __BASICARRAY_H__
 
-#include "array/AbstractArray.h"
+#include <utility>
+
+#include "array/Array/AbstractArray.h"
 #include "array/ArrayStrategy/ArrayOperator/AdditionOperator.h"
 #include "array/Index.h"
 #include "array/Range.h"
 #include "array/Subscript.h"
 
-namespace blackbox 
+namespace blackbox
 {
+	// BasicArray
+	// __________________________________________________
+	// Provides a simple implementation of AbstractArray.
+	// Must be instantiated with an order.
 	template <typename T>
-	class BasicArray : public virtual AbstractArray<T>, public virtual AdditionOperator<T> 
+	class BasicArray : public virtual AbstractArray<T>
 	{
 		BasicArray() = delete;
 
 	public:
+		// _________________
+		// Constructor(s)...
 		BasicArray(Subscript order);
-
+		BasicArray(BasicArray<T> const& array) = default;
+		BasicArray(BasicArray<T>&& array) = default;
+		BasicArray(AbstractArray<T> const& array);
+		BasicArray(AbstractArray<T>&& array);
 		virtual ~BasicArray() = default;
-		
-		// accessor methods
+		// _____________________
+		// Accessor method(s)...
 		using AbstractArray<T>::at;
-		auto at(Index index) -> T&;
-
-		// const accessor methods
+		auto at(Index index) ->	T&;
+		// ___________________________
+		// Const accessor method(s)...
 		auto at(Index index) const -> T const&;
-
+		// _________________________
+		// Assignment operator(s)...
+		BasicArray<T>& operator =(BasicArray<T> const& array) = default;
+		BasicArray<T>& operator =(AbstractArray<T> const& array);
 		BasicArray<T>& operator =(std::initializer_list<T> values);
 
-		virtual std::auto_ptr<AbstractArray<T>> create(Subscript order) const;
-
 	protected:
+		// _________________
+		// Data getter(s)...
+		std::vector<T> getData_();
+
+	private:
+		// ___________________
+		// Helper method(s)...
+		void swap_(BasicArray<T>& array);
+
+		// _______
+		// Data...
 		std::vector<T> data_;
 
-		
+	}; // BasicArray
 
-	};
+} // blackbox
 
-	template <typename T>
-	BasicArray<T>::BasicArray(Subscript order) : AbstractArray<T>(order), data_(size_)
+namespace blackbox
+{
+
+	// _________________
+	// Constructor(s)...
+
+	// BasicArray(Subscript)
+	template <typename T> BasicArray<T>::BasicArray(Subscript order) : AbstractArray<T>(order), data_(this->getSize())
 	{
-		for (int i = 0; i < order.toIndex(); i++) {
+		for (int i = 0; i < order.toIndex(); i++)
+		{
 			data_.at(i) = T();
 		}
 	}
 
-	template <typename T>
-	BasicArray<T>& BasicArray<T>::operator =(std::initializer_list<T> values)
+	// BasicArray(AbstractArray<T> const&)
+	template <typename T> BasicArray<T>::BasicArray(AbstractArray<T> const& array) : BasicArray<T>(array.getOrder())
 	{
 		//TODO implement new EventMessage for order mismatch
-		ASSERT("", values.size() == order_.toIndex());
+		ASSERT("", array.getOrder() == this->getOrder());
+		for (int i = 1; i <= this->getSize(); i++)
+		{
+			this->at(i) = array.at(i);
+		}
+	}
+
+	// BasicArray(AbstractArray<T>&&)
+	template <typename T> BasicArray<T>::BasicArray(AbstractArray<T>&& array) : BasicArray(array.getOrder())
+	{
+		//TODO implement new EventMessage for order mismatch
+		ASSERT("", array.getOrder() == this->getOrder());
+		for (int i = 1; i <= this->getSize(); i++)
+		{
+			this->at(i) = array.at(i);
+		}
+	}
+
+
+	// _____________________
+	// Accessor method(s)...
+
+	// at(Index)
+	template <typename T> auto BasicArray<T>::at(Index index) -> T&
+	{
+		//TODO implement new EventMessage for subscript/index out of bounds
+		ASSERT("", index <= this->getSize());
+		return data_.at(index - 1);
+	}
+
+
+	// ___________________________
+	// Const accessor method(s)...
+
+	// at(Index) const
+	template <typename T> auto BasicArray<T>::at(Index index) const -> T const&
+	{
+		//TODO implement new EventMessage for subscript/index out of bounds
+		ASSERT("", index <= this->getSize());
+		return data_.at(index - 1);
+	}
+
+
+	// _________________________
+	// Assignment operator(s)...
+	
+	// operator =(std::initializer_list)
+	template <typename T> BasicArray<T>& BasicArray<T>::operator =(AbstractArray<T> const& array)
+	{
+		//TODO implement new EventMessage for order mismatch
+		ASSERT("", array.getOrder() == this->getOrder());
+		if (this != &array)
+		{
+			this->swap_(BasicArray<T>(array));
+		}
+		return *this;
+	}
+
+	// operator =(std::initializer_list)
+	template <typename T> BasicArray<T>& BasicArray<T>::operator =(std::initializer_list<T> values)
+	{
+		//TODO implement new EventMessage for order mismatch
+		ASSERT("", values.size() == this->getOrder().toIndex());
 		int i = 0;
-		for (T value : values) {
+		for (T value : values)
+		{
 			data_.at(i) = value;
 			i++;
 		}
 		return *this;
 	}
 
-	template <typename T>
-	auto BasicArray<T>::at(Index index) -> T&
+
+	// _________________
+	// Data getter(s)...
+
+	// getData_()
+	template <typename T> std::vector<T> BasicArray<T>::getData_()
 	{
-		//TODO implement new EventMessage for subscript/index out of bounds
-		ASSERT("", index <= order_.toIndex());
-		return data_.at(index - 1);
+		return data_;
 	}
 
-	template <typename T>
-	auto BasicArray<T>::at(Index index) const -> T const&
-	{
-		//TODO implement new EventMessage for subscript/index out of bounds
-		ASSERT("", index <= order_.toIndex());
-		return data_.at(index - 1);
-	}
+	// _________________
+	// Helper methods...
 
-	template <typename T>
-	std::auto_ptr<AbstractArray<T>> BasicArray<T>::create(Subscript order) const
+	// swap_(AbstractArray<T>&)
+	template <typename T> void BasicArray<T>::swap_(BasicArray<T>& array)
 	{
-		return std::auto_ptr<AbstractArray<T>>(new BasicArray<T>(order));
+		std::swap(this->data_, array.getData_());
 	}
 
 } // blackbox
-
-#include "BasicArray.cpp"
 
 #endif
 
