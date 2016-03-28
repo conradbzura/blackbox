@@ -7,7 +7,16 @@ RUN apt-get update && \
     apt-get install -y \
         software-properties-common \
         git \
-        vim-gtk
+        vim-gtk \
+        build-essential \
+        clang-3.6 \
+        llvm \
+	libc++-dev
+
+# Configure git
+RUN git config --global user.email "conradbzura@gmail.com" && \
+    git config --global user.name "Conrad Bzura" && \
+    git config --global push.default matching
 
 # Install window theme
 RUN apt-add-repository ppa:numix/ppa && \
