@@ -204,13 +204,13 @@ void test2(Order o) {
 }
 */
 
-#include "context/Mode.h"
+#include "main/context/Mode.h"
 
 
 //#include "array/SimpleContainer.h"
 //#include "array/AbstractContainer.h"
-#include "array/Array/BasicArray.h"
-#include "event/EventHandler/EventHandler.h"
+#include "main/array/Array/BasicArray.h"
+#include "main/event/EventHandler/EventHandler.h"
 
 void test5() {
 

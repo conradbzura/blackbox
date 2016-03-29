@@ -4,8 +4,8 @@
 #include <string>
 #include <stdexcept>
 
-#include "log/Log.h"
-#include "context/Mode.h"
+#include "main/log/Log.h"
+#include "main/context/Mode.h"
 
 namespace blackbox {
 	class Event {

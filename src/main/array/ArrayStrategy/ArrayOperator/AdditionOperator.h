@@ -3,9 +3,9 @@
 
 #include <memory>
 
-#include "event/EventHandler/EventHandler.h"
+#include "main/event/EventHandler/EventHandler.h"
 
-#include "iAdditionOperator.h"
+#include "main/array/ArrayStrategy/ArrayOperator/iAdditionOperator.h"
 
 namespace blackbox {
 	template <typename T>

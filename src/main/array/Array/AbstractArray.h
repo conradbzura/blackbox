@@ -3,14 +3,14 @@
 
 #include <memory>
 
-#include "array/Index.h"
-#include "array/Range.h"
-#include "array/Subscript.h"
+#include "main/array/Index.h"
+#include "main/array/Range.h"
+#include "main/array/Subscript.h"
 
-#include "event/EventHandler/EventHandler.h"
-#include "event/EventMessage/ImplementationWarning.h"
+#include "main/event/EventHandler/EventHandler.h"
+#include "main/event/EventMessage/ImplementationWarning.h"
 
-#include "pattern/Prototype.h"
+#include "main/pattern/Prototype.h"
 
 namespace blackbox
 {
@@ -83,7 +83,7 @@ namespace blackbox
 
 } // blackbox
 
-#include "array/Array/SubArray.h"
+#include "main/array/Array/SubArray.h"
 
 namespace blackbox
 {

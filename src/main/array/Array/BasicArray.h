@@ -3,11 +3,11 @@
 
 #include <utility>
 
-#include "array/Array/AbstractArray.h"
-#include "array/ArrayStrategy/ArrayOperator/AdditionOperator.h"
-#include "array/Index.h"
-#include "array/Range.h"
-#include "array/Subscript.h"
+#include "main/array/Array/AbstractArray.h"
+#include "main/array/ArrayStrategy/ArrayOperator/AdditionOperator.h"
+#include "main/array/Index.h"
+#include "main/array/Range.h"
+#include "main/array/Subscript.h"
 
 namespace blackbox
 {

@@ -1,7 +1,7 @@
 COMPILER = clang-3.6
 FLAGS = -g -std=c++11 -Wall -stdlib=libc++
 
-.PHONY: all clean
+.PHONY: all clean OBJECTS
 
 all: OBJECTS
 	

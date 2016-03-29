@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "array/ArrayStrategy/ArrayOperator/IArrayOperator.h"
+#include "main/array/ArrayStrategy/ArrayOperator/IArrayOperator.h"
 
 namespace blackbox {
 template <typename T>

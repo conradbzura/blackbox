@@ -6,7 +6,7 @@
 #include <string>
 
 #include "LogStream.h"
-#include "pattern/Singleton.h"
+#include "main/pattern/Singleton.h"
 
 namespace blackbox {
 	template <typename T>

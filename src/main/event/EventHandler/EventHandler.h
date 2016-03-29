@@ -3,11 +3,11 @@
 
 #include <typeinfo>
 
-#include "context/Mode.h"
-#include "log/Log.h"
-#include "pattern/Singleton.h"
+#include "main/context/Mode.h"
+#include "main/log/Log.h"
+#include "main/pattern/Singleton.h"
 
-#include "event/Event/Event.h"
+#include "main/event/Event/Event.h"
 
 namespace blackbox {
 	class EventHandler : public Singleton<EventHandler> {
