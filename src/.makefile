@@ -15,7 +15,7 @@ OBJ_DIR = .obj
 DEP_DIR = .dep
 
 # create object and dependency directories
-$(shell mkdir -p OBJECT_DIR DEPENDENCY_DIR)
+$(shell mkdir -p $(OBJ_DIR) $(DEP_DIR))
 
 # create source, object, and dependency file lists
 SRC = $(shell find ./main -name '*.cpp')
