@@ -15,12 +15,12 @@ namespace blackbox {
 		EventHandler() = default;
 		~EventHandler() = default;
 
-		void handle(ErrorEvent& visitee);
-		void handle(WarningEvent& visitee);
-		void handle(BenchmarkEvent& visitee);
-		void handle(DiagnosticEvent& visitee);
-		void handle(FaultEvent& visitee);
-		void handle(DebugEvent& visitee);
+		void handle(ErrorEvent visitee);
+		void handle(WarningEvent visitee);
+		void handle(BenchmarkEvent visitee);
+		void handle(DiagnosticEvent visitee);
+		void handle(FaultEvent visitee);
+		void handle(DebugEvent visitee);
 	};
 
 	#define MODE DEBUG_MODE

@@ -163,7 +163,7 @@ namespace blackbox
 	}
 
 	// operator [](Range) const
-	template <typename T> typename const AbstractArray<T>::SubArray AbstractArray<T>::operator [](Range range) const
+	template <typename T> const typename AbstractArray<T>::SubArray AbstractArray<T>::operator [](Range range) const
 	{
 		return this->at(range);
 	}

@@ -1,4 +1,4 @@
 # Exclude object and dependency files:
-**/.*.o
-**/.*.d
-**/.*.d~
+**/.obj
+**/.dep
+**/.log

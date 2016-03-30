@@ -132,7 +132,8 @@ namespace blackbox
 		ASSERT("", array.getOrder() == this->getOrder());
 		if (this != &array)
 		{
-			this->swap_(BasicArray<T>(array));
+			BasicArray<T> temporary(array);
+			this->swap_(temporary);
 		}
 		return *this;
 	}
@@ -167,7 +168,7 @@ namespace blackbox
 	// swap_(AbstractArray<T>&)
 	template <typename T> void BasicArray<T>::swap_(BasicArray<T>& array)
 	{
-		std::swap(this->data_, array.getData_());
+		//std::swap(this->data_, array.getData_());
 	}
 
 } // blackbox
