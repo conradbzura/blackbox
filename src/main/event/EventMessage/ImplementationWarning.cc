@@ -1,6 +1,7 @@
 #include "ImplementationWarning.h"
 
 namespace blackbox {
+	namespace Events {
 	const std::string ImplementationWarning::START_OF_FUNCTION_SIGNATURE_ = "__thiscall";
 	const std::string ImplementationWarning::STRING_TO_NEUTER_ = "class ";
 
@@ -21,5 +22,7 @@ namespace blackbox {
 
 	std::string ImplementationWarning::trimFunctionName(std::string functionName) {
 		return functionName.substr(functionName.find(START_OF_FUNCTION_SIGNATURE_) + START_OF_FUNCTION_SIGNATURE_.size() + 1, functionName.size());
+	}
+
 	}
 }

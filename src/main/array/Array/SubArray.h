@@ -3,6 +3,7 @@
 
 namespace blackbox
 {
+	namespace Arrays {
 	// SubArray
 	// _______________________________________________________________________
 	// Provides a handle to an AbstractArray object with a specific range.
@@ -54,11 +55,12 @@ namespace blackbox
 		Range range_;
 
 	}; // SubArray
-
+	}
 } // blackbox
 
 namespace blackbox
 {
+	namespace Arrays {
 
 	// _________________
 	// Constructor(s)...
@@ -195,7 +197,7 @@ namespace blackbox
 		}
 		return *this;
 	}
-
+	}
 } // blackbox
 
 #endif

@@ -1,6 +1,7 @@
 #include "LogStream.h"
 
 namespace blackbox {
+	namespace Logs {
 	//TODO split the implementation classes out into separate files
 
 	const char* LogStream::File::CRLF = "\r\n";
@@ -73,5 +74,6 @@ namespace blackbox {
 
 	void LogStream::String::write(const std::string& message) {
 		//TODO implement
+	}
 	}
 }

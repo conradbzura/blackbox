@@ -6,6 +6,7 @@
 #include "EventMessage.h"
 
 namespace blackbox {
+	namespace Events {
 	class ImplementationWarning : public EventMessage {
 	public:
 		ImplementationWarning() = delete;
@@ -21,7 +22,7 @@ namespace blackbox {
 		static const std::string START_OF_FUNCTION_SIGNATURE_;
 	};
 }
-
-#define __IMPLEMENTATION_WARNING__ blackbox::ImplementationWarning(__FUNCSIG__, typeid(*this).name())
+}
+#define __IMPLEMENTATION_WARNING__ blackbox::event::ImplementationWarning(__FUNCSIG__, typeid(*this).name())
 
 #endif

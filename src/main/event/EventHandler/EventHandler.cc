@@ -1,6 +1,7 @@
 #include "EventHandler.h"
 
 namespace blackbox {
+	namespace Events {
 	
 	void EventHandler::handle(ErrorEvent event) {
 		LOG_SERVICE.log(event.getType(), event.getMessage(), event.getFile(), event.getLine());
@@ -30,4 +31,5 @@ namespace blackbox {
 		LOG_SERVICE.log(event.getType(), event.getMessage(), event.getFile(), event.getLine());
 	}
 
-}
+	}
+	}

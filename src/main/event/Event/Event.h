@@ -8,6 +8,7 @@
 #include "main/context/Mode.h"
 
 namespace blackbox {
+	namespace Events {
 	class Event {
 	public:
 		Event() = delete;
@@ -62,5 +63,5 @@ namespace blackbox {
 		DebugEvent(std::string message, std::string file, int line) : Event("DEBUG", message, file, line) {}
 	};
 }
-
+}
 #endif

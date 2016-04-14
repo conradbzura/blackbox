@@ -9,6 +9,7 @@
 #include "main/pattern/Singleton.h"
 
 namespace blackbox {
+	namespace Logs {
 	template <typename T>
 	class LogService : public Singleton<LogService<T>> {
 	public:
@@ -28,7 +29,7 @@ namespace blackbox {
 		static const char* DELIM;
 	};
 }
-
-#include "LogService.cpp"
+}
+#include "LogService.cc"
 
 #endif

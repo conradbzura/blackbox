@@ -1,6 +1,7 @@
 #ifdef __LOGSERVICE_H__
 
 namespace blackbox {
+	namespace Logs {
 
 	template <typename T>
 	const char* LogService<T>::DELIM = ",";
@@ -54,6 +55,7 @@ namespace blackbox {
 		entry << index << DELIM << getTime() << DELIM << type << DELIM << "\"" << message << "\"" << DELIM << file << DELIM << line;
 		return entry.str();
 	}
-}
 
+	}
+}
 #endif

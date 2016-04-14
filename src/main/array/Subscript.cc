@@ -2,6 +2,7 @@
 #include "Index.h"
 
 namespace blackbox {
+	namespace Arrays {
 
 	Subscript::Subscript() {
 		//noop
@@ -32,4 +33,5 @@ namespace blackbox {
 		}
 		return Index(index);
 	}
+}
 }

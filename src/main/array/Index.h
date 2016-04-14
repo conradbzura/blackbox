@@ -6,6 +6,7 @@
 using Integer = int;
 
 namespace blackbox {
+	namespace Arrays {
 	class Index {
 	public:
 		Index();
@@ -17,6 +18,7 @@ namespace blackbox {
 	private:
 		Integer index_;
 	};
+	}
 }
 
 #endif

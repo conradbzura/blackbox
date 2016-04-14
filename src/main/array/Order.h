@@ -3,7 +3,8 @@
 
 #include "Subscript.h"
 
-namespace blackbox {
+namespace blackbox { 
+	namespace Arrays {
 	class Order : public Subscript {
 	public:
 		Order();
@@ -12,6 +13,7 @@ namespace blackbox {
 		operator Subscript();
 		Index toIndex() const;
 	};
+	}
 }
 
 #endif

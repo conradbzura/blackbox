@@ -4,6 +4,7 @@
 #include <string>
 
 namespace blackbox {
+	namespace Events {
 	class EventMessage {
 	public:
 		EventMessage(std::string message) : message_(message) {}
@@ -14,6 +15,6 @@ namespace blackbox {
 		std::string message_;
 	};
 }
-
+}
 #endif
 

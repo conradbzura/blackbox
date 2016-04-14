@@ -22,6 +22,6 @@ namespace blackbox {
 
 }
 
-#include "Singleton.cpp"
+#include "Singleton.cc"
 
 #endif

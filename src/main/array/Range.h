@@ -6,6 +6,7 @@
 #include "Subscript.h"
 
 namespace blackbox {
+	namespace Arrays {
 	class Range {
 	public:
 		class Iterator {
@@ -53,6 +54,7 @@ namespace blackbox {
 		Subscript ceiling_;
 		Iterator iterator_;
 	};
+}
 }
 
 #endif

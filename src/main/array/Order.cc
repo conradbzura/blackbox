@@ -2,6 +2,7 @@
 #include "Index.h"
 
 namespace blackbox {
+	namespace Arrays {
 
 	Order::Order() {
 		//noop
@@ -18,4 +19,5 @@ namespace blackbox {
 	Index Order::toIndex() const {
 		return Subscript::toIndex(*this);
 	}
+}
 }

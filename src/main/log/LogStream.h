@@ -10,6 +10,7 @@
 #define LOG_STRING 'S'
 
 namespace blackbox {
+	namespace Logs {
 	class LogStream {
 	public:
 		virtual void open() = 0;
@@ -57,6 +58,7 @@ namespace blackbox {
 	private:
 		std::unique_ptr<std::ofstream> stream_;
 	};
+	}
 }
 
 #endif

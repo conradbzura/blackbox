@@ -1,6 +1,7 @@
 #include "Range.h"
 
 namespace blackbox {
+	namespace Arrays {
 
 	Range::Range() : iterator_(this) {
 		//noop
@@ -151,5 +152,6 @@ namespace blackbox {
 			this_.at(i) = range_->ceiling_.at(i);
 			increment(++i);
 		}
+	}
 	}
 }

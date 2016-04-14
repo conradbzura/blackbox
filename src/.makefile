@@ -2,7 +2,7 @@
 CC = clang-3.6
 
 # define various build flags
-CPP_FLAGS = -g -std=c++11 -Wall -I/home/developer/blackbox/src
+CPP_FLAGS = -g -std=c++11 -Wall -I/home/conrad/Projects/blackbox/src
 BLD_FLAGS = -stdlib=libc++
 DEP_FLAGS = -MT $@ -MMD -MP -MF $(patsubst $(OBJ_DIR)/%.o,$(DEP_DIR)/%.d~,$@)
 LNK_FLAGS = -lc++
@@ -18,9 +18,9 @@ DEP_DIR = .dep
 $(shell mkdir -p $(OBJ_DIR) $(DEP_DIR))
 
 # create source, object, and dependency file lists
-SRC = $(shell find ./main -name '*.cpp')
-OBJ = $(patsubst ./%.cpp,$(OBJ_DIR)/%.o,$(SRC))
-DEP = $(patsubst ./%.cpp,$(DEP_DIR)/%.d,$(SRC))
+SRC = $(shell find ./main -name '*.cc')
+OBJ = $(patsubst ./%.cc,$(OBJ_DIR)/%.o,$(SRC))
+DEP = $(patsubst ./%.cc,$(DEP_DIR)/%.d,$(SRC))
 
 # map source directory tree into object and dependency root directories
 PRECOMPILE = mkdir -p $(@D) $(DEP_DIR)/$(<D)
@@ -39,18 +39,18 @@ clean:
 	@rm -f $(OBJ) $(DEP)
 
 # delete default rule
-$(OBJ): $(OBJ_DIR)/%.o: %.cpp
+$(OBJ): $(OBJ_DIR)/%.o: %.cc
 
 # perform source compilation workflow
-$(OBJ): $(OBJ_DIR)/%.o: %.cpp $(DEP_DIR)/%.d
-	@echo "\n# Building "$<"..."
-	@echo "\n# Mapping source directory tree:"
+$(OBJ): $(OBJ_DIR)/%.o: %.cc $(DEP_DIR)/%.d
+	@echo "\n>> Building "$<"..."
+	@echo "\n>> Mapping source directory tree:"
 	$(PRECOMPILE)
-	@echo "\n# Compiling source:"
+	@echo "\n>> Compiling source:"
 	$(COMPILE)
-	@echo "\n# Persisting dependency file:"
+	@echo "\n>> Persisting dependency file:"
 	$(POSTCOMPILE)
-	@echo "\n# Finished building "$<".\n"
+	@echo "\n>> Finished building "$<".\n"
 
 $(DEP_DIR)/%.d: ;
 .PRECIOUS: $(DEP_DIR)/%.d

@@ -21,29 +21,29 @@
 void test5() {
 
 	using namespace blackbox;
-	Subscript sub({ 2, 2 });
-	Index ind = sub.toIndex({ 3, 3 });
+	Arrays::Subscript sub({ 2, 2 });
+	Arrays::Index ind = sub.toIndex({ 3, 3 });
 	sub = ind.toSubscript({ 3, 3 });
 
 	for (int i = 1; i < 28; i++)
 	{
-		Subscript ss = Index(i).toSubscript({ 3, 3, 3 });
+		Arrays::Subscript ss = Arrays::Index(i).toSubscript({ 3, 3, 3 });
 	}
 
 	WARNING("Warning occurred here");
 	int three = 3;
-	BasicArray<int> a({ three, 3 });
-	BasicArray<int> A({ 3, 3 });
-	BasicArray<int> subA({ 2, 2 });
+	Arrays::BasicArray<int> a({ three, 3 });
+	Arrays::BasicArray<int> A({ 3, 3 });
+	Arrays::BasicArray<int> subA({ 2, 2 });
 	a = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	A = { 1, 2, 3, 4, 5, 6, 7, 8, 100 };
 	A = a;
 	subA = { 10, 20, 30, 40 };
 //	std::auto_ptr<AbstractArray<int>> SUM(a + A);
-	AbstractArray<int>* b = new BasicArray<int>({ 1, 3 });
-	Subscript s({ 2, 2 });
-	Subscript S({ 3, 3 });
-	Index I = s.toIndex();
+	Arrays::AbstractArray<int>* b = new Arrays::BasicArray<int>({ 1, 3 });
+	Arrays::Subscript s({ 2, 2 });
+	Arrays::Subscript S({ 3, 3 });
+	Arrays::Index I = s.toIndex();
 	//std::shared_ptr<int> i = a.at(4);
 	int i = a.at(4);
 	a.at(7) = 100;
@@ -53,12 +53,12 @@ void test5() {
 	int thirty = 30;
 	//*j = thirty;
 	//j.swap(std::make_shared<int>(30));
-	Range r(s);
-	Range R(s, S);
+	Arrays::Range r(s);
+	Arrays::Range R(s, S);
 	a[r][r] = { 13, 13, 13, 13 };
 	subA = a.at(r);
 	a.at(r) = A[R];
-	std::auto_ptr<AbstractArray<int>> test;// =
+	std::auto_ptr<Arrays::AbstractArray<int>> test;// =
 	WARNING("Finished!"); 
 }
 

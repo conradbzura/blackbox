@@ -1,6 +1,7 @@
 #include "Index.h"
 
 namespace blackbox {
+	namespace Arrays {
 
 	Index::Index() {
 		//noop
@@ -33,5 +34,6 @@ namespace blackbox {
 			index %= cumulativeProduct.at(j--);
 		}
 		return Subscript(subscript);
+	}
 	}
 }

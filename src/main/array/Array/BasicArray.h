@@ -4,13 +4,13 @@
 #include <utility>
 
 #include "main/array/Array/AbstractArray.h"
-#include "main/array/ArrayStrategy/ArrayOperator/AdditionOperator.h"
 #include "main/array/Index.h"
 #include "main/array/Range.h"
 #include "main/array/Subscript.h"
 
 namespace blackbox
 {
+	namespace Arrays {
 	// BasicArray
 	// __________________________________________________
 	// Provides a simple implementation of AbstractArray.
@@ -57,11 +57,12 @@ namespace blackbox
 		std::vector<T> data_;
 
 	}; // BasicArray
-
+	}
 } // blackbox
 
 namespace blackbox
 {
+	namespace Arrays {
 
 	// _________________
 	// Constructor(s)...
@@ -170,7 +171,7 @@ namespace blackbox
 	{
 		//std::swap(this->data_, array.getData_());
 	}
-
+	}
 } // blackbox
 
 #endif

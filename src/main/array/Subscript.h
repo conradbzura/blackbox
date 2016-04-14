@@ -6,6 +6,7 @@
 using Integer = int;
 
 namespace blackbox {
+	namespace Arrays {
 	class Index;
 	class Subscript : public std::vector<Integer> {
 	public:
@@ -19,5 +20,5 @@ namespace blackbox {
 		Index toIndex(Subscript ceiling) const;
 	};
 }
-
+}
 #endif

@@ -10,6 +10,7 @@
 #include "main/event/Event/Event.h"
 
 namespace blackbox {
+	namespace Events {
 	class EventHandler : public Singleton<EventHandler> {
 	public:
 		EventHandler() = default;
@@ -26,39 +27,39 @@ namespace blackbox {
 	#define MODE DEBUG_MODE
 
 	#if MODE >= ALPHA_MODE
-	#define ERROR(message) EventHandler::Instance().handle(ErrorEvent(message, __FILE__, __LINE__))
+	#define ERROR(message) Events::EventHandler::Instance().handle(Events::ErrorEvent(message, __FILE__, __LINE__))
 	#else
 	#define ERROR(...)
 	#endif
 
 	#if MODE >= BETA_MODE
-	#define WARNING(message) EventHandler::Instance().handle(WarningEvent(message, __FILE__, __LINE__))
+	#define WARNING(message) Events::EventHandler::Instance().handle(Events::WarningEvent(message, __FILE__, __LINE__))
 	#else
 	#define WARNING(...)
 	#endif
 
 	#if MODE >= BENCHMARK_MODE
-	#define BENCHMARK(message) EventHandler::Instance().handle(BenchmarkEvent(message, __FILE__, __LINE__))
+	#define BENCHMARK(message) Events::EventHandler::Instance().handle(Events::BenchmarkEvent(message, __FILE__, __LINE__))
 	#else
 	#define BENCHMARK(...)
 	#endif
 
 	#if MODE >= DIAGNOSTIC_MODE
-	#define DIAGNOSTIC(message) EventHandler::Instance().handle(DiagnosticEvent(message, __FILE__, __LINE__))
+	#define DIAGNOSTIC(message) Events::EventHandler::Instance().handle(Events::DiagnosticEvent(message, __FILE__, __LINE__))
 	#else
 	#define DIAGNOSTIC(...)
 	#endif
 
 	#if MODE >= DEBUG_MODE
-	#define DEBUG(message) EventHandler::Instance().handle(DebugEvent(message, __FILE__, __LINE__))
-	#define FAULT(message) EventHandler::Instance().handle(FaultEvent(message, __FILE__, __LINE__, false))
-	#define ASSERT(message, condition) EventHandler::Instance().handle(FaultEvent(message, __FILE__, __LINE__, condition))
+	#define DEBUG(message) Events::EventHandler::Instance().handle(Events::DebugEvent(message, __FILE__, __LINE__))
+	#define FAULT(message) Events::EventHandler::Instance().handle(Events::FaultEvent(message, __FILE__, __LINE__, false))
+	#define ASSERT(message, condition) Events::EventHandler::Instance().handle(Events::FaultEvent(message, __FILE__, __LINE__, condition))
 	#else
 	#define DEBUG(...)
 	#define FAULT(...)
 	#define ASSERT(...)
 	#endif
 }
-
+}
 #endif
 

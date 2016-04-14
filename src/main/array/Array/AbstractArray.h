@@ -14,6 +14,7 @@
 
 namespace blackbox
 {
+	namespace Arrays {
 	// AbstractArray
 	// ____________________________________________________________________
 	// Serves as base class for all array types in blackbox.
@@ -80,13 +81,14 @@ namespace blackbox
 		Subscript order_;
 
 	}; // AbstractArray
-
+	}
 } // blackbox
 
 #include "main/array/Array/SubArray.h"
 
 namespace blackbox
 {
+	namespace Arrays {
 
 	// _________________
 	// Constructor(s)...
@@ -183,7 +185,7 @@ namespace blackbox
 	{
 		return order_;
 	}
-
+}
 } // blackbox
 
 #endif
