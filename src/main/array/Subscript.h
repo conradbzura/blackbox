@@ -5,20 +5,23 @@
 
 using Integer = int;
 
-namespace blackbox {
-	namespace Arrays {
-	class Index;
-	class Subscript : public std::vector<Integer> {
-	public:
-		Subscript();
-		//Subscript(std::vector<Integer> subscript);
-		Subscript(std::vector<Integer> subscript);
-		Subscript(std::initializer_list<Integer> subscript);
-		~Subscript();
+namespace blackbox
+{
+namespace Arrays
+{
+class Index;
+class Subscript : public std::vector<Integer>
+{
+  public:
+    Subscript();
+    // Subscript(std::vector<Integer> subscript);
+    Subscript(std::vector<Integer> subscript);
+    Subscript(std::initializer_list<Integer> subscript);
+    ~Subscript();
 
-		Index toIndex() const;
-		Index toIndex(Subscript ceiling) const;
-	};
+    Index toIndex() const;
+    Index toIndex(Subscript ceiling) const;
+};
 }
 }
 #endif

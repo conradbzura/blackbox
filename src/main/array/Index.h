@@ -5,20 +5,24 @@
 
 using Integer = int;
 
-namespace blackbox {
-	namespace Arrays {
-	class Index {
-	public:
-		Index();
-		Index(Integer index);
-		~Index();
+namespace blackbox
+{
+namespace Arrays
+{
+class Index
+{
+  public:
+    Index();
+    Index(Integer index);
+    ~Index();
 
-		operator Integer();
-		Subscript toSubscript(Subscript ceiling);
-	private:
-		Integer index_;
-	};
-	}
+    operator Integer();
+    Subscript toSubscript(Subscript ceiling);
+
+  private:
+    Integer index_;
+};
+}
 }
 
 #endif

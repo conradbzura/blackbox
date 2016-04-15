@@ -3,17 +3,20 @@
 
 #include "Subscript.h"
 
-namespace blackbox { 
-	namespace Arrays {
-	class Order : public Subscript {
-	public:
-		Order();
-		~Order();
+namespace blackbox
+{
+namespace Arrays
+{
+class Order : public Subscript
+{
+  public:
+    Order();
+    ~Order();
 
-		operator Subscript();
-		Index toIndex() const;
-	};
-	}
+    operator Subscript();
+    Index toIndex() const;
+};
+}
 }
 
 #endif
