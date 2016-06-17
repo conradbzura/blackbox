@@ -40,7 +40,7 @@ flags = [
 '-x',
 'c++',
 '-g',
-'-I/home/conrad/blackbox/src',
+'-I$(BLACKBOX)/src',
 '-stdlib=libc++'
 ]
 

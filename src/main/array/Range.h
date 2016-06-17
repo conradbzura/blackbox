@@ -5,10 +5,8 @@
 #include "Order.h"
 #include "Subscript.h"
 
-namespace blackbox
-{
-namespace Arrays
-{
+namespace blackbox {
+namespace Arrays {
 class Range
 {
   public:
@@ -16,7 +14,7 @@ class Range
     {
       public:
         Iterator();
-        Iterator(Range *range);
+        Iterator(Range* range);
 
         operator Subscript();
 
@@ -37,7 +35,7 @@ class Range
         void increment(int i = 0);
         void decrement(int i = 0);
 
-        Range *range_;
+        Range* range_;
         Subscript this_;
     };
     Range();

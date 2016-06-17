@@ -5,10 +5,8 @@
 
 using Integer = int;
 
-namespace blackbox
-{
-namespace Arrays
-{
+namespace blackbox {
+namespace Arrays {
 class Index
 {
   public:

@@ -3,10 +3,8 @@
 
 #include "Subscript.h"
 
-namespace blackbox
-{
-namespace Arrays
-{
+namespace blackbox {
+namespace Arrays {
 class Order : public Subscript
 {
   public:

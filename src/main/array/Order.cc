@@ -1,10 +1,8 @@
 #include "Order.h"
 #include "Index.h"
 
-namespace blackbox
-{
-namespace Arrays
-{
+namespace blackbox {
+namespace Arrays {
 
 Order::Order()
 {
@@ -16,8 +14,15 @@ Order::~Order()
     // noop
 }
 
-Order::operator Subscript() { return Subscript(*this); }
+Order::operator Subscript()
+{
+    return Subscript(*this);
+}
 
-Index Order::toIndex() const { return Subscript::toIndex(*this); }
+Index
+Order::toIndex() const
+{
+    return Subscript::toIndex(*this);
+}
 }
 }

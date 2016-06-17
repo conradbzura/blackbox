@@ -1,6 +1,11 @@
-# Exclude object and dependency files:
+# Exclude object and dependency files
 **/.obj
 **/.dep
 **/.log
 **/*.swp
+
+# Exclude you-complete-me config binary
 **/*.pyc
+
+# Exclude app binary
+**/src/app
