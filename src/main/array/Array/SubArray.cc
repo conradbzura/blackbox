@@ -53,7 +53,7 @@ AbstractArray<T>::SubArray::at(Range range) -> SubArray
 {
     // TODO implement new EventMessage for range out of bounds
     ASSERT("", range.getCeiling() <= this->getOrder());
-    return SubArray(parent_, range);
+    return SubArray(parent_, Range(range_.map(range.getFloor()), range_.map(range.getCeiling())));
 }
 
 // Const accessor method(s)...
