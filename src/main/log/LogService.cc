@@ -1,7 +1,7 @@
 #ifdef __LOGSERVICE_H__
 
 namespace blackbox {
-	namespace Logs {
+	namespace Log {
 
 	template <typename T>
 	const char* LogService<T>::DELIM = ",";

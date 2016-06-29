@@ -8,11 +8,11 @@ DEP_FLAGS = -MT $@ -MMD -MP -MF $(patsubst $(OBJ_DIR)/%.o,$(DEP_DIR)/%.d~,$@)
 LNK_FLAGS = -lc++
 
 # define target application name
-TARGET = app
+TARGET = $(BLACKBOX)/bin/app
 
 # define root object and dependency directories
-OBJ_DIR = $(BLACKBOX)/src/.obj
-DEP_DIR = $(BLACKBOX)/src/.dep
+OBJ_DIR = $(BLACKBOX)/bin
+DEP_DIR = $(BLACKBOX)/dep
 
 # create object and dependency directories
 $(shell mkdir -p $(OBJ_DIR) $(DEP_DIR))
@@ -23,7 +23,7 @@ OBJ = $(patsubst $(BLACKBOX)/src/%.cc,$(OBJ_DIR)/%.o,$(SRC))
 DEP = $(patsubst $(BLACKBOX)/src/%.cc,$(DEP_DIR)/%.d,$(SRC))
 
 # map source directory tree into object and dependency root directories
-PRECOMPILE = mkdir -p $(@D) $(DEP_DIR)/$(<D)
+PRECOMPILE = mkdir -p $(@D) $(DEP_DIR)/$(patsubst src/%,%,$(<D))
 # compile source
 COMPILE = $(CC) -c $(DEP_FLAGS) $(BLD_FLAGS) $(CPP_FLAGS) $< -o $@
 # rename temporary dependency files to make them permanent
@@ -38,10 +38,10 @@ clean:
 	@rm -f $(OBJ) $(DEP)
 
 # delete default rule
-$(OBJ): $(OBJ_DIR)/%.o: %.cc
+$(OBJ): $(OBJ_DIR)/%.o: src/%.cc
 
 # perform source compilation workflow
-$(OBJ): $(OBJ_DIR)/%.o: %.cc $(DEP_DIR)/%.d
+$(OBJ): $(OBJ_DIR)/%.o: src/%.cc $(DEP_DIR)/%.d
 	@echo "\n>> Building "$<"..."
 	@echo "\n>> Mapping source directory tree:"
 	$(PRECOMPILE)

@@ -9,7 +9,7 @@
 #include "main/pattern/Singleton.h"
 
 namespace blackbox {
-	namespace Logs {
+	namespace Log {
 	template <typename T>
 	class LogService : public Singleton<LogService<T>> {
 	public:

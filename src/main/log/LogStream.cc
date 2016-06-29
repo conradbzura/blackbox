@@ -1,7 +1,7 @@
 #include "LogStream.h"
 
 namespace blackbox {
-	namespace Logs {
+	namespace Log {
 	//TODO split the implementation classes out into separate files
 
 	const char* LogStream::File::CRLF = "\r\n";

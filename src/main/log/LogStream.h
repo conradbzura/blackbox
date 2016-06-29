@@ -10,7 +10,7 @@
 #define LOG_STRING 'S'
 
 namespace blackbox {
-	namespace Logs {
+	namespace Log {
 	class LogStream {
 	public:
 		virtual void open() = 0;
